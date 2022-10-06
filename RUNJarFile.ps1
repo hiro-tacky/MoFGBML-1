@@ -1,4 +1,4 @@
-$dataName = "pima"
+$dataName = "vehicle"
 $parallelCores = 12
 $algorithmID = "default"
 $experimentID = "trial"
