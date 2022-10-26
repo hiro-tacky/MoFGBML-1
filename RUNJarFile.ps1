@@ -1,11 +1,11 @@
-$dataName = "pima"
+$dataName = "phoneme"
 $parallelCores = 12
 $algorithmID = "default"
 $experimentID = "trial"
 $logFileName = $algorithmID + "_log.txt"
 
 Start-Transcript ./results/$algorithmID/$dataName/$logFileName -Append
-for($i=0; $i -lt 3; $i++){
+for($i=1; $i -lt 3; $i++){
 	for($j=0; $j -lt 10; $j++){
 		$DtraFileName = "a" + $i + "_" + $j + "_" + $dataName + "-10tra.dat"
 		$DtstFileName = "a" + $i + "_" + $j + "_" + $dataName + "-10tst.dat"
