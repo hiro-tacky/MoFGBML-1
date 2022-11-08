@@ -4,35 +4,38 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cilabo.data.ClassLabel;
-
 public class ClassLabelTest {
 
 	@Test
 	public void testSingleLabel() {
-		Integer C = 7;
-		String actual = "7";
+		Integer expected = 7;
 
 		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(C);
+		classLabel.addClassLabel(expected);
 
-		String expected = classLabel.toString();
-
-		assertEquals(expected, actual);
+		assertEquals(expected, classLabel.getClassLabel());
 	}
 
 	@Test
 	public void testMultiLabel() {
-		Integer[] cVec = new Integer[] {1, 0, 1};
-		String actual = "1, 0, 1";
+		Integer[] expected = new Integer[] {1, 0, 1};
 
 		ClassLabel classLabel = new ClassLabel();
-		for(int i = 0; i < cVec.length; i++) {
-			classLabel.addClassLabel(cVec[i]);
+		for(int i = 0; i < expected.length; i++) {
+			classLabel.addClassLabel(expected[i]);
 		}
 
-		String expected = classLabel.toString();
+		assertArrayEquals(expected, classLabel.getClassVector());
 
-		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testMultiLabel2() {
+		Integer[] expected = new Integer[] {1, 0, 1};
+
+		ClassLabel classLabel = new ClassLabel();
+		classLabel.addClassLabels(expected);
+
+		assertArrayEquals(expected, classLabel.getClassVector());
 	}
 }

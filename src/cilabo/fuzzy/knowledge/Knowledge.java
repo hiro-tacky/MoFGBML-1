@@ -106,7 +106,7 @@ public class Knowledge {
 		return knowledge;
 	}
 
-	private String getFuzzyTermShapeTypeNameFromID(int id) {
+	public static String getFuzzyTermShapeTypeNameFromID(int id) {
 		String ShapeName =null;
 		switch(id) {
 			case 0: ShapeName = "rightLinearShape"; break;
@@ -129,5 +129,21 @@ public class Knowledge {
 			case 99: ShapeName = "DontCare"; break;
 		}
 		return ShapeName;
+	}
+
+	public static String getFuzzyTermDdivisionTypeNameFromID(int id) {
+		String TypeName =null;
+		switch(id) {
+			case 0: TypeName = "equalDdivision"; break;
+			case 1: TypeName = "entropyDdivision"; break;
+			default: TypeName = "equalDdivision"; break;
+		}
+		return TypeName;
+	}
+
+	public static String makeFuzzyTermName(int ShapeTypeID, int DdivisionTypeID, int FuzzyTermID) {
+		if(ShapeTypeID == 99) {return "DontCare";}
+		return String.format("%s_%s_%02d", Knowledge.getFuzzyTermShapeTypeNameFromID(ShapeTypeID),
+				Knowledge.getFuzzyTermDdivisionTypeNameFromID(DdivisionTypeID), FuzzyTermID);
 	}
 }

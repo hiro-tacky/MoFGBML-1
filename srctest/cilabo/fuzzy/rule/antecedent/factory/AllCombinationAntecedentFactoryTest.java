@@ -43,6 +43,5 @@ public class AllCombinationAntecedentFactoryTest {
 		}
 
 		assertEquals(factory.create(), null);
-		assertEquals(factory.create(), null);
-	}
+ 	}
 }

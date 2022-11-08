@@ -2,64 +2,63 @@ package cilabo.data;
 
 import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PatternTest {
+
+	static InputVector inputVector;
+	static ClassLabel classLabel;
+	static Pattern pattern;
+
+	static double[] inputVectorExpected;
+	static Integer[] classLabelExpected;
+
+    @BeforeClass
+    public static void setUpBeforeClass(){
+    	inputVectorExpected = new double[] {0d, 1/3d, 2/3d, 1d};
+		inputVector = new InputVector(inputVectorExpected);
+
+		classLabel = new ClassLabel();
+		classLabelExpected = new Integer[] {1, 0, 1};
+		classLabel.addClassLabels(classLabelExpected);
+
+
+		pattern = Pattern.builder()
+				.id(0)
+				.inputVector(inputVector)
+				.trueClass(classLabel)
+				.build();
+    }
 	@Test
 	public void testGetDimValue() {
-		int id = 0;
-		double[] vector = new double[] {0, 1};
-		int dimension = vector.length;
 
-		InputVector inputVector = new InputVector(vector);
-		ClassLabel classLabel = new ClassLabel();
-
-		Pattern pattern = Pattern.builder()
-								.id(id)
-								.inputVector(inputVector)
-								.trueClass(classLabel)
-								.build();
-
-		for(int i = 0; i < dimension; i++) {
-			Double actual = vector[i];
+		for(int i = 0; i < inputVectorExpected.length; i++) {
+			Double actual = inputVectorExpected[i];
 			Double expected = pattern.getDimValue(i);
 			assertEquals(expected, actual);
 		}
 	}
 
+
 	@Test
-	public void testGetTrueClass() {
-		int id = 0;
-		double[] vector = new double[] {0, 1};
-		InputVector inputVector = new InputVector(vector);
-
-		Pattern pattern;
-
-		//Single Label
-		Integer C = 7;
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(C);
-		pattern = Pattern.builder()
-						.id(id)
-						.inputVector(inputVector)
-						.trueClass(classLabel)
-						.build();
-		Integer actualC = C;
-		Integer expectedC = pattern.getTrueClass().getClassLabel();
-		assertEquals(expectedC, actualC);
-
-		//Multi Label
-		Integer[] cVec = new Integer[] {1, 0, 1};
+	public void testGetTrueClassSingel() {
 		classLabel = new ClassLabel();
-		classLabel.addClassLabels(cVec);
-		pattern = Pattern.builder()
-						.id(id)
-						.inputVector(inputVector)
-						.trueClass(classLabel)
-						.build();
-		Integer[] actualVector = cVec;
-		Integer[] expectedVector = pattern.getTrueClass().getClassVector();
-		assertArrayEquals(expectedVector, actualVector);
+		Integer expected = 2;
+		classLabel.addClassLabel(expected);
 
+		pattern = Pattern.builder()
+				.id(0)
+				.inputVector(inputVector)
+				.trueClass(classLabel)
+				.build();
+
+		assertEquals(expected, pattern.getTrueClass().getClassLabel());
+	}
+
+
+	@Test
+	public void testGetTrueClassMulti() {
+		assertArrayEquals(classLabelExpected, pattern.getTrueClass().getClassVector());
 	}
 }

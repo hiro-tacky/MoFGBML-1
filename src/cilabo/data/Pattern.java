@@ -5,55 +5,50 @@ public class Pattern {
 	// ************************************************************
 	// Fields
 
-	/**
-	 *  Identification number
-	 */
+	/** Identification number */
 	int id;
 
-	/**
-	 * Input vector
-	 */
-	InputVector inputVector;
+	/** 属性値 */
+	private InputVector inputVector;
 
-	/**
-	 * Class label
-	 */
-	ClassLabel trueClass;
+	/** 結論部クラス*/
+	private ClassLabel trueClass;
 
-	// ************************************************************
-	// Constructor
+	/** コンストラクタ <br> Constructs an instance of class
+	 * @param id パターンのID
+	 * @param inputVector 属性値クラス
+	 * @param trueClass 結論部クラス
+	 */
 	public Pattern(int id, InputVector inputVector, ClassLabel trueClass) {
 		this.id = id;
 		this.inputVector = inputVector;
 		this.trueClass = trueClass;
 	}
 
-	// ************************************************************
-	// Methods
-
-	/**
-	 *
+	/** 指定したidの属性値を取得<br>Returns the element at the specified position in this list.
+	 * @param index id
+	 * @return 指定したidの属性値
 	 */
 	public double getDimValue(int index) {
 		return this.inputVector.getDimValue(index);
 	}
 
-	/**
-	 *
+	/** idを取得
+	 * @return id
 	 */
 	public int getID() {
 		return this.id;
 	}
 
-	/**
-	 *
+	/** 属性値クラスを取得
+	 * @return 属性値クラス
 	 */
 	public InputVector getInputVector() {
 		return this.inputVector;
 	}
 
-	/**
-	 *
+	/** 結論部クラスを取得
+	 * @return 結論部クラス
 	 */
 	public ClassLabel getTrueClass() {
 		return this.trueClass;
@@ -71,15 +66,25 @@ public class Pattern {
 		return str;
 	}
 
+
+	/** patternインスタンスをFactory Methodを作成
+	 * @return Factory Method
+	 */
 	public static PatternBuilder builder() {
 		return new PatternBuilder();
 	}
 
+	/**
+	 * patternインスタンスのFactory Method
+	 * @author hirot
+	 *
+	 */
 	public static class PatternBuilder {
 		private int id = -1;
 		private InputVector inputVector;
 		private ClassLabel trueClass;
 
+		/**  空のインスタンスを生成します <br> Constructs an empty instance of class*/
 		PatternBuilder() {}
 
 		public Pattern.PatternBuilder id(int id) {
@@ -87,20 +92,26 @@ public class Pattern {
 			return this;
 		}
 
+		/** patternインスタンスの属性値クラスを設計図に書き込む
+		 * @param inputVector 属性値クラス
+		 * @return 記入済みpatternインスタンスのFactory Method
+		 */
 		public Pattern.PatternBuilder inputVector(InputVector inputVector) {
 			this.inputVector = inputVector;
 			return this;
 		}
 
+		/** patternインスタンスの結論部クラスを設計図に書き込む
+		 * @param trueClass 結論部クラス
+		 * @return 記入済みpatternインスタンスのFactory Method
+		 */
 		public Pattern.PatternBuilder trueClass(ClassLabel trueClass) {
 			this.trueClass = trueClass;
 			return this;
 		}
 
-		/**
-		 * @param id : int
-		 * @param inputVector : InputVector
-		 * @param trueClass : ClassLabel
+		/**設計図を基にpatternインスタンスを生成
+		 * @return 生成されたpatternインスタンス
 		 */
 		public Pattern build() {
 			return new Pattern(id, inputVector, trueClass);

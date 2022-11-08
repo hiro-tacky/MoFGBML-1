@@ -2,6 +2,8 @@ package cilabo.data;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,24 +16,36 @@ public class DataSetTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     	dataset = new DataSet();
-    	String fileName = "dataset\\iris\\a0_0_iris-10tra.dat";;
+    	String fileName = "dataset\\cilabo\\test_Dtra.dat";
 		Input.inputSingleLabelDataSet(dataset, fileName);
     }
 
     @Test
 	public void pattern() {
-    	Pattern pattern_sapmle = dataset.getPattern(0);
 
-    	//属性値
-    	double[] vector = {0.222222222222222,0.625,0.0677966101694915,0.0416666666666667};
-    	InputVector inputVector = new InputVector(vector);
-    	assertArrayEquals(inputVector.getVector(), pattern_sapmle.getInputVector().getVector(), 1e-10);
+		assertEquals(2, dataset.getNdim());
+		assertEquals(4, dataset.getCnum());
 
-    	//結論部クラスラベル
-    	ClassLabel classLabel = new ClassLabel();
-    	classLabel.addClassLabel(0);
-    	assertArrayEquals(classLabel.getClassVector(), pattern_sapmle.getTrueClass().getClassVector());
-    	assertEquals(classLabel.getClassLabel(), pattern_sapmle.getTrueClass().getClassLabel());
+		ArrayList<Pattern> pattern_actual = dataset.getPatterns();
+		assertEquals(100, pattern_actual.size());
+		for(int i=0; i<pattern_actual.size(); i++) {
+			Pattern pattern_i = pattern_actual.get(i);
+
+			assertEquals(i, pattern_i.getID());
+
+			//属性値
+			double[] vectorBuf = {i/100d, Math.pow(i/100d, 2)};
+			assertArrayEquals(vectorBuf, pattern_i.getInputVector().getVector(), 1e-5);
+
+			//クラスラベルマルチ
+			Integer[] classLabelMultiBuf = {i/25};
+			assertArrayEquals(classLabelMultiBuf, pattern_i.getTrueClass().getClassVector());
+
+			//クラスラベル
+			Integer classLabelBuf = i/25;
+			assertEquals(classLabelBuf, pattern_i.getTrueClass().getClassLabel());
+		}
+
     }
 
 }

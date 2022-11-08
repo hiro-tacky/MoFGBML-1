@@ -46,7 +46,7 @@ public class FuzzyRuleTest {
 						.consequent(consequent)
 						.build();
 
-		String actual = "If [ 0,  2,  1] Then class:[7] weight:[0.5]";
+		String actual = "If [DontCare, triangularShape_equalDdivision_02, triangularShape_equalDdivision_01] Then class:[7] weight:[0.5]";
 
 		String expected = rule.toString();
 

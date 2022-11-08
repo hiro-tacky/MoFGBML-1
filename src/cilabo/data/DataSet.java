@@ -4,33 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * データセットのクラス
+ * @author hirot
+ *
+ */
 public class DataSet {
-	// ************************************************************
-	// Fields
 
-	int DataSize;	// Number of Patterns
-	int Ndim;	// Number of Features
-	int Cnum;	// Number of Classes
+	/** Number of Patterns*/
+	private int DataSize;
+	/** Number of Features*/
+	private int Ndim;
+	/** Number of Classes*/
+	private int Cnum;
 
-	ArrayList<Pattern> patterns = new ArrayList<>();
+	/**	データセットのパターンをArrayListで保持 */
+	private ArrayList<Pattern> patterns = new ArrayList<>();
 
-	// ************************************************************
-	// Constructor
-
+	/**空のインスタンスを生成します <br> Constructs an empty instance of class */
 	public DataSet() {}
 
-	// ************************************************************
-	// Methods
-
-	/* Shallow Copy */
+	/** パターンのコピーを追加
+	 * @param pattern 追加したいパターン
+	 */
 	public void addPattern(Pattern pattern) {
 		this.patterns.add(pattern);
 	}
 
+	/**
+	 * idを指定してパターンを取得
+	 * @param index 取得したいパターンのid
+	 * @return 取得したいパターン
+	 */
 	public Pattern getPattern(int index) {
 		return this.patterns.get(index);
 	}
 
+	/**
+	 * idを指定してパターンを取得(並列処理用)
+	 * @param index 取得したいパターンのid
+	 * @return 取得したいパターン
+	 */
 	public Pattern getPatternWithID(int id) {
 		List<Pattern> list = this.patterns.stream()
 										.filter(p -> p.getID() == id)
@@ -38,10 +52,10 @@ public class DataSet {
 		return list.get(0);
 	}
 
-	public void setPattern(ArrayList<Pattern> patterns) {
-		this.patterns = patterns;
-	}
-
+	/**
+	 * idを指定してパターンのArrayListを取得
+	 * @return パターン
+	 */
 	public ArrayList<Pattern> getPatterns(){
 		return this.patterns;
 	}

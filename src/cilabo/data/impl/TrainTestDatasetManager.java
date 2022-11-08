@@ -8,41 +8,58 @@ import cilabo.data.DatasetManager;
 import cilabo.labo.developing.fan2021.CommandLineArgs;
 import cilabo.main.Consts;
 import cilabo.utility.Input;
+import utility.Methods;
 
-/**
- * 学習用データ1つ，評価用データ1つのシンプルなデータ分割を保持するクラス.
- */
+/** 学習用データ1つ，評価用データ1つのシンプルなデータ分割を保持するクラス.<br>
+ * 	this class has one training dataset and one test dataset.
+ *  */
 public class TrainTestDatasetManager implements DatasetManager {
-	// ************************************************************
+	// ** 学習用データセット <br>training dataset*/
 	ArrayList<DataSet> trains = new ArrayList<>();
+	// ** 評価用データセット <br>test dataset*/
 	ArrayList<DataSet> tests = new ArrayList<>();
 
-	// ************************************************************
+	/** 空のインスタンスを生成します <br> Constructs an empty instance of class */
 	public TrainTestDatasetManager() {
 	}
 
-	// ************************************************************
-	public void addTrains(DataSet train) {
+
+	/** 学習用データセットを追加
+	 * @param train 学習用データセット
+	 */
+	protected void addTrains(DataSet train) {
 		this.trains.add(train);
 	}
 
-	public void addTests(DataSet test) {
+	/** 評価用データセットを追加
+	 * @param test 評価用データセット
+	 */
+	protected void addTests(DataSet test) {
 		this.tests.add(test);
 	}
 
+
+	/** 学習用データセットを取得
+	 * @return 学習用データセット
+	 */
 	public ArrayList<DataSet> getTrains() {
+		Methods.nullCheck(this.trains, "TrainTestDatasetManagerのtrainsがnull");
 		return this.trains;
 	}
 
+	/** 評価用データセットを取得
+	 * @return 評価用データセット
+	 */
 	public ArrayList<DataSet> getTests() {
+		Methods.nullCheck(this.tests, "TrainTestDatasetManagerのtestsがnull");
 		return this.tests;
 	}
 
 	/**
 	 * ファイル名を指定してデータセットをロードする関数
-	 * @param trainFile String
-	 * @param testFile String
-	 * @return DatasetManager
+	 * @param trainFile 学習用データセットのパス
+	 * @param testFile 評価用データセットのパス
+	 * @return 生成されたTrainTestDatasetManagerインスタンス
 	 */
 	public TrainTestDatasetManager loadTrainTestFiles(String trainFile, String testFile) {
 
@@ -59,7 +76,7 @@ public class TrainTestDatasetManager implements DatasetManager {
 
 	/**
 	 * irisのtrial00をロードする関数.
-	 * @return DatasetManager
+	 * @return irisのtrial00の学習用及び評価用データセットを持つTrainTestDatasetManagerインスタンス
 	 */
 	public TrainTestDatasetManager loadIrisTrial00() {
 		String sep = File.separator;

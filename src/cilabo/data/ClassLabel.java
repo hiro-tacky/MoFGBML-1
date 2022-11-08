@@ -2,42 +2,51 @@ package cilabo.data;
 
 import java.util.ArrayList;
 
+import utility.Methods;
+
+/** クラスラベルを持つクラス
+ * @author hirot
+ */
 public class ClassLabel {
-	// ************************************************************
-	// Fields
+	/** クラスラベルのArrayList */
 	ArrayList<Integer> classLabel = new ArrayList<>();
 
-	// ************************************************************
-	// Constructor
+	/**空のインスタンスを生成します <br> Constructs an empty instance of class */
 	public ClassLabel() {}
 
+	/** deepcopy用
+	 * @param classLabel コピー元のclassLabel
+	 */
 	private ClassLabel(ArrayList<Integer> classLabel) {
 		this.classLabel.addAll(classLabel);
 	}
 
-	// ************************************************************
-	// Methods
 
-	/**
-	 *
+	/** deepcopy
+	 * @return このインスタンスのクローン
 	 */
 	public ClassLabel deepcopy() {
 		return new ClassLabel(this.classLabel);
 	}
 
-	/**
-	 *
+	/** 単一のクラスラベルを取得
+	 * @return クラスラベルのArrayListの先頭要素
 	 */
 	public Integer getClassLabel() {
+		Methods.nullCheck(this.classLabel, "classLabel is null");
 		return this.classLabel.get(0);
 	}
 
+	/** 単一のクラスラベルのArrayListを取得
+	 * @return クラスラベルのArrayList
+	 */
 	public Integer[] getClassVector() {
+		Methods.nullCheck(this.classLabel, "classLabel is null");
 		return this.classLabel.toArray(new Integer[0]);
 	}
 
 	/**
-	 *
+	 * @param classLabel
 	 */
 	public void addClassLabels(Integer[] classLabel) {
 		for(int i = 0; i < classLabel.length; i++) {

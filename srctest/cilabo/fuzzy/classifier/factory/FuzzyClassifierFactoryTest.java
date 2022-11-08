@@ -10,36 +10,12 @@ import cilabo.data.DataSet;
 import cilabo.data.Pattern;
 import cilabo.fuzzy.StaticFuzzyClassifierForTest;
 import cilabo.fuzzy.classifier.RuleBasedClassifier;
-import cilabo.fuzzy.knowledge.Knowledge;
-import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
-import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.utility.Input;
 
 public class FuzzyClassifierFactoryTest {
 
-	public static DataSet makeTestTrain() {
-		String sep = File.separator;
-		String dataName = "dataset" + sep + "cilabo" + sep + "kadai5_pattern1.txt";
-		DataSet train = new DataSet();
-		Input.inputSingleLabelDataSet(train, dataName);
-
-		return train;
-	}
-
-	public static Knowledge makeTestKnowledge() {
-		DataSet train = makeTestTrain();
-
-		int dimension = train.getNdim();
-		float[][] params = HomoTriangle_3.getParams();
-		HomoTriangleKnowledgeFactory.builder()
-								.dimension(dimension)
-								.params(params)
-								.build()
-								.create();
-		return Knowledge.getInstace();
-	}
-
+	static DataSet train;
 
 
 	public double evaluateCorrectRate(DataSet dataset, RuleBasedClassifier classifier) {
@@ -60,7 +36,7 @@ public class FuzzyClassifierFactoryTest {
 	public void testCreateWithKadai5_1() {
 		String sep = File.separator;
 		String dataName = "dataset" + sep + "cilabo" + sep + "kadai5_pattern1.txt";
-		DataSet train = new DataSet();
+		train = new DataSet();
 		Input.inputSingleLabelDataSet(train, dataName);
 
 		RuleBasedClassifier classifier = StaticFuzzyClassifierForTest.makeSingleLabelClassifier(train);
@@ -80,7 +56,7 @@ public class FuzzyClassifierFactoryTest {
 	public void testCreateWithKadai5_2() {
 		String sep = File.separator;
 		String dataName = "dataset" + sep + "cilabo" + sep + "kadai5_pattern2.txt";
-		DataSet train = new DataSet();
+		train = new DataSet();
 		Input.inputSingleLabelDataSet(train, dataName);
 
 		RuleBasedClassifier classifier = StaticFuzzyClassifierForTest.makeSingleLabelClassifier(train);

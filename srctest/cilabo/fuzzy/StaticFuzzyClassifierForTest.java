@@ -1,5 +1,6 @@
 package cilabo.fuzzy;
 
+import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.fuzzy.classifier.ClassifierFactory;
 import cilabo.fuzzy.classifier.RuleBasedClassifier;
@@ -16,9 +17,13 @@ import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
+import cilabo.fuzzy.rule.Rule;
+import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.antecedent.AntecedentFactory;
 import cilabo.fuzzy.rule.antecedent.factory.AllCombinationAntecedentFactory;
+import cilabo.fuzzy.rule.consequent.Consequent;
 import cilabo.fuzzy.rule.consequent.ConsequentFactory;
+import cilabo.fuzzy.rule.consequent.RuleWeight;
 import cilabo.fuzzy.rule.consequent.factory.MoFGBML_Learning;
 import cilabo.fuzzy.rule.consequent.factory.MultiLabel_MoFGBML_Learning;
 
@@ -97,6 +102,52 @@ public class StaticFuzzyClassifierForTest {
 										.build();
 
 		RuleBasedClassifier classifier = (RuleBasedClassifier)factory.create();
+		return classifier;
+	}
+
+	/**
+	 * 3均等分割三角形型ファジィ集合(Don't careを含まない)の全ての組み合わせを有するファジィ識別器
+	 * @param train 学習用データセット
+	 * @return ファジィ識別器
+	 */
+	public static RuleBasedClassifier simpleClassifier(int dim) {
+		float[][] params = HomoTriangle_3.getParams();
+		HomoTriangleKnowledgeFactory.builder()
+								.dimension(dim)
+								.params(params)
+								.build()
+								.create();
+
+		RuleBasedClassifier classifier = new RuleBasedClassifier();
+		Classification classification = new SingleWinnerRuleSelection();
+		classifier.setClassification(classification);
+		// Pre Processing
+		PreProcessing preProcessing = new NopPreProcessing();
+		preProcessing.preProcess(classifier);
+
+
+		for(int i=1; i<4; i++) {
+			for(int j=1; j<4; j++) {
+				int[] buf = {i, j};
+				Antecedent antecedent = new Antecedent(Knowledge.getInstace(), buf);
+
+				ClassLabel classLabel = new ClassLabel();
+				Integer[] buf2= {i, j};
+				classLabel.addClassLabels(buf2);
+
+				RuleWeight ruleWeight = new RuleWeight();
+				ruleWeight.addRuleWeight(0.5d);
+				Consequent consequent = new Consequent(classLabel, ruleWeight);
+
+				Rule rule = new Rule(antecedent, consequent);
+				classifier.addRule(rule);
+			}
+		}
+
+		// Post Processing
+		PostProcessing postProcessing = new SimplePostProcessing();
+		postProcessing.postProcess(classifier);
+
 		return classifier;
 	}
 }

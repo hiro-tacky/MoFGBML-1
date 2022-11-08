@@ -2,27 +2,27 @@ package cilabo.data;
 
 import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import cilabo.data.InputVector;
 
 public class InputVectorTest {
 
-	@Test
-	public void testGetDimValue() {
-		double[] vector = new double[] {0, 1};
-		InputVector inputVector = new InputVector(vector);
+	private static InputVector inputVector;
+	private static double[] vector;
 
-		Double[] actual = new Double[vector.length];
-		for(int i = 0; i < actual.length; i++) {
-			actual[i] = vector[i];
-		}
-
-		Double[] expected = new Double[inputVector.getVector().length];
-		for(int i = 0; i < expected.length; i++) {
-			expected[i] = inputVector.getDimValue(i);
-		}
-
-		assertArrayEquals(expected, actual);
+	@BeforeClass
+	public static void setUpBeforeClass() {
+		vector = new double[] {0d, 1/3d, 2/3d, 1d};
+		inputVector = new InputVector(vector);
 	}
+
+	@Test
+	public void testInputVector() {
+
+		assertArrayEquals(vector, inputVector.getVector(), 1e-5);
+		for(int i=0; i<vector.length; i++) {
+			assertEquals(vector[i], inputVector.getDimValue(i), 1e-5);
+		}
+	}
+
 }

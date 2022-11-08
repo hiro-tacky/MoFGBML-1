@@ -10,35 +10,38 @@ import cilabo.fuzzy.rule.RejectedRule;
 import cilabo.fuzzy.rule.Rule;
 
 public class SingleWinnerRuleSelection implements Classification {
-	// ************************************************************
-	// Fields
 
-	// ************************************************************
-	// Constructor
-
-	// ************************************************************
-	// Methods
-
+	/**
+	 * 単一勝利ルールに基づいて勝利ルールを出力する．
+	 * @param classifier 識別器
+	 * @param vector 入力パターン
+	 * @return 勝利ルール
+	 * @see cilabo.fuzzy.classifier.operator.classification.Classification#classify(cilabo.fuzzy.classifier.Classifier, cilabo.data.InputVector)
+	 */
 	@Override
 	public Rule classify(Classifier classifier, InputVector vector) {
-		if(classifier.getClass() != RuleBasedClassifier.class) return null;
+		if(classifier instanceof  RuleBasedClassifier) {
+			System.err.println("入力instanceはRuleBasedClassifierである必要があります");
+		}
 
 		List<Rule> ruleSet = ((RuleBasedClassifier)classifier).getRuleSet();
 
-		boolean canClassify = true;
-		double max = -Double.MAX_VALUE;
+		boolean canClassify = true; //識別可能か
+		double max = -Double.MAX_VALUE; //適用度最大値
 		int winner = 0;
 		for(int q = 0; q < ruleSet.size(); q++) {
 			Rule rule = ruleSet.get(q);
-			double membership = rule.getAntecedent().getCompatibleGrade(vector.getVector());
-			double CF = rule.getConsequent().getRuleWeight().getRuleWeight();
+			double membership = rule.getAntecedent().getCompatibleGrade(vector.getVector()); //メンバシップ値
+			double CF = rule.getConsequent().getRuleWeight().getRuleWeight(); //ルール重み
 
 			double value = membership * CF;
+			//適用度最大値更新
 			if(value > max) {
 				max = value;
 				winner = q;
 				canClassify = true;
 			}
+			//適用度最大値が同値を取る場合
 			else if(value == max) {
 				Rule winnerRule = ruleSet.get(winner);
 				// "membership*CF"が同値 かつ 結論部クラスが異なる
