@@ -9,18 +9,21 @@ import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.rule.Rule;
 import xml.XML_manager;
 
+/**ルールベース識別器
+ * @author hirot
+ *
+ */
 public class RuleBasedClassifier implements Classifier {
-	// ************************************************************
-	// Fields
 
-	/**  */
+	/**  ルール集合*/
 	ArrayList<Rule> ruleSet = new ArrayList<>();
 
-	/**  */
+	/** 識別方式
+	 * @see cilabo.fuzzy.classifier.operator.classification
+	 *  */
 	Classification classification;
 
-	// ************************************************************
-	// Constructor
+	/** 空のインスタンスを生成します <br> Constructs an empty instance of class */
 	public RuleBasedClassifier() {}
 
 	/**  Copy constructor */
@@ -32,27 +35,20 @@ public class RuleBasedClassifier implements Classifier {
 		classification = classifier.getClassification();
 	}
 
-	// ************************************************************
-	// Methods
-
-	/**
-	 *
+	/* 識別を行う
+	 * @see cilabo.fuzzy.classifier.Classifier#classify(cilabo.data.InputVector)
 	 */
 	@Override
 	public Rule classify(InputVector vector) {
 		return (Rule)this.classification.classify(this, vector);
 	}
 
-	/**
-	 *
-	 */
+	/** ルール数を取得する */
 	public int getRuleNum() {
 		return this.ruleSet.size();
 	}
 
-	/**
-	 *
-	 */
+	/**	ルール長を取得する */
 	public int getRuleLength() {
 		int length = 0;
 		for(int i = 0; i < ruleSet.size(); i++) {
@@ -61,35 +57,48 @@ public class RuleBasedClassifier implements Classifier {
 		return length;
 	}
 
-	/**
-	 *
+	/** ルールを追加する
+	 * @param rule 追加ルール
 	 */
 	public void addRule(Rule rule) {
 		this.ruleSet.add(rule);
 	}
 
+	/**  id指定でルールを取得<br>Returns the element at the specified position in this list.
+	 * @param index id
+	 * @return ルール
+	 */
 	public Rule getRule(int index) {
 		return this.ruleSet.get(index);
 	}
 
+	/** ルール集合を取得
+	 * @return ルール集合
+	 */
 	public ArrayList<Rule> getRuleSet() {
 		return this.ruleSet;
 	}
 
-	/**
-	 *
+
+	/** 指定したルールを削除
+	 * @param index 指定するid
+	 * @return 削除されたルール
 	 */
 	public Rule popRule(int index) {
 		return this.ruleSet.remove(index);
 	}
 
-	/**
-	 *
+
+	/**識別方法を設定
+	 * @param classification 識別方法
 	 */
 	public void setClassification(Classification classification) {
 		this.classification = classification;
 	}
 
+	/**識別方式を取得
+	 * @return 識別方式
+	 */
 	public Classification getClassification() {
 		return this.classification;
 	}

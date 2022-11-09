@@ -6,13 +6,13 @@ public class Pattern {
 	// Fields
 
 	/** Identification number */
-	int id;
+	final int id;
 
 	/** 属性値 */
-	private InputVector inputVector;
+	final private InputVector inputVector;
 
 	/** 結論部クラス*/
-	private ClassLabel trueClass;
+	final private ClassLabel trueClass;
 
 	/** コンストラクタ <br> Constructs an instance of class
 	 * @param id パターンのID

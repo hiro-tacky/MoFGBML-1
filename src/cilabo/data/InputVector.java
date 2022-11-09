@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public class InputVector {
 
-	double[] inputVector; // 属性値配列
+	final double[] inputVector; // 属性値配列
 
 	/**  コンストラクタ <br> Constructs an instance of class
 	 * @param inputVector 属性値配列
@@ -29,7 +29,7 @@ public class InputVector {
 	 * @return 属性値配列
 	 */
 	public double[] getVector() {
-		return this.inputVector;
+		return this.inputVector.clone();
 	}
 
 	@Override

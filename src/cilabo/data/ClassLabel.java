@@ -1,15 +1,14 @@
 package cilabo.data;
 
 import java.util.ArrayList;
-
-import utility.Methods;
+import java.util.Objects;
 
 /** クラスラベルを持つクラス
  * @author hirot
  */
 public class ClassLabel {
 	/** クラスラベルのArrayList */
-	ArrayList<Integer> classLabel = new ArrayList<>();
+	final ArrayList<Integer> classLabel = new ArrayList<>();
 
 	/**空のインスタンスを生成します <br> Constructs an empty instance of class */
 	public ClassLabel() {}
@@ -33,7 +32,7 @@ public class ClassLabel {
 	 * @return クラスラベルのArrayListの先頭要素
 	 */
 	public Integer getClassLabel() {
-		Methods.nullCheck(this.classLabel, "classLabel is null");
+		if(Objects.isNull(this.classLabel.get(0))) {System.err.println("classLabel is null");}
 		return this.classLabel.get(0);
 	}
 
@@ -41,7 +40,7 @@ public class ClassLabel {
 	 * @return クラスラベルのArrayList
 	 */
 	public Integer[] getClassVector() {
-		Methods.nullCheck(this.classLabel, "classLabel is null");
+		if(Objects.isNull(this.classLabel)) {System.err.println("classLabel is null");}
 		return this.classLabel.toArray(new Integer[0]);
 	}
 

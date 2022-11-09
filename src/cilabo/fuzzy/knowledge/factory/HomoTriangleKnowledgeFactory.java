@@ -4,9 +4,11 @@ import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.KnowledgeFactory;
 import jfml.term.FuzzyTermType;
 
+/**等分割三角形型ファジィのKBを生成
+ * @author hirot
+ *
+ */
 public class HomoTriangleKnowledgeFactory implements KnowledgeFactory {
-	// ************************************************************
-	// Fields
 
 	/** Number of features */
 	int dimension;
@@ -14,15 +16,15 @@ public class HomoTriangleKnowledgeFactory implements KnowledgeFactory {
 	/** Parameters of membership functions */
 	float[][] params;
 
-	// ************************************************************
-	// Constructor
+	/**コンストラクタ
+	 *
+	 * @param dimension 次元数
+	 * @param params 分割区間のパラメータ
+	 */
 	public HomoTriangleKnowledgeFactory(int dimension, float[][] params) {
 		this.dimension = dimension;
 		this.params = params;
 	}
-
-	// ************************************************************
-	// Methods
 
 	@Override
 	public void create() {
@@ -34,10 +36,10 @@ public class HomoTriangleKnowledgeFactory implements KnowledgeFactory {
 			//Don't care
 			fuzzySets[i][0] = new FuzzyTermType(" 0",
 												FuzzyTermType.TYPE_rectangularShape,
-												new float[] {-10000f, 1f});
+												new float[] {0f, 1f});
 			for(int j = 1; j < fuzzySetNum+1; j++) {
-				String name = String.format("%2s", String.valueOf(j));
 				int shapeType = FuzzyTermType.TYPE_triangularShape;
+                String name = String.format("%2s", String.valueOf(j));
 				float[] param = params[j-1];
 				fuzzySets[i][j] = new FuzzyTermType(name, shapeType, param);
 			}
@@ -50,6 +52,10 @@ public class HomoTriangleKnowledgeFactory implements KnowledgeFactory {
 		return;
 	}
 
+	/**
+	 * 等分割三角形型ファジィのKBの雛形を生成
+	 * @return 生成された雛形
+	 */
 	public static HomoTriangleKnowledgeFactory.KnowledgeBuilder builder() {
 		return new KnowledgeBuilder();
 	}
@@ -60,19 +66,26 @@ public class HomoTriangleKnowledgeFactory implements KnowledgeFactory {
 
 		KnowledgeBuilder() {}
 
+		/** 生成するKBの次元数を入力
+		 * @param dimension 次元数
+		 * @return 記入済みの雛形
+		 */
 		public HomoTriangleKnowledgeFactory.KnowledgeBuilder dimension(int dimension) {
 			this.dimension = dimension;
 			return this;
 		}
 
+		/** 生成するKBのパラメータを入力
+		 * @param params 分割区間集合のパラメータ
+		 * @return 記入済みの雛形
+		 */
 		public HomoTriangleKnowledgeFactory.KnowledgeBuilder params(float[][] params) {
 			this.params = params;
 			return this;
 		}
 
-		/**
-		 * @param dimension : int
-		 * @param params : float[][]
+		/** 雛形を基にKBを生成
+		 * @return 生成されたKB
 		 */
 		public HomoTriangleKnowledgeFactory build() {
 			return new HomoTriangleKnowledgeFactory(dimension, params);

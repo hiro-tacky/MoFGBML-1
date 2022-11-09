@@ -7,63 +7,52 @@ import xml.XML_manager;
 
 
 /**
- * singletoneに変更，アプリケーション内で唯一のインスタンスを持ちます．≒グローバル変数
+ * singletoneに変更，アプリケーション内で唯一のインスタンスを持ちます．≒グローバル変数<br>
+ * Knowledge.getInstace()でインスタンスを呼出し使用．
  * @author hirot
  *
  */
 public class Knowledge {
-	// ************************************************************
-	// Fields
 	private static Knowledge instace = new Knowledge();
-
-	/** */
 	private FuzzyTermType[][] fuzzySets;
 
-	// ************************************************************
-	// Constructor
 	private Knowledge() {}
 
-
-	// ************************************************************
-	// Methods
-
+	/**
+	 * Knowledge のインスタンスを取得
+	 * @return Knowledge
+	 */
 	public static Knowledge getInstace() {
 		return instace;
 	}
 
+	/** 指定したファジィセットを取得
+	 * @param dimension 次元
+	 * @param H ファジィセットのid
+	 * @return dim次元H番目のファジィセット
+	 */
 	public FuzzyTermType getFuzzySet(int dimension, int H) {
 		return fuzzySets[dimension][H];
 	}
 
-	/**
-	 *
-	 * @param x
-	 * @param dimension
-	 * @param H
-	 * @return
+	/** 指定したファジィセットを取得
+	 * @param x 入力パターンの属性値
+	 * @param dimension 次元
+	 * @param H ファジィセットのid
+	 * @return dim次元H番目のファジィセット
 	 */
 	public double getMembershipValue(double x, int dimension, int H) {
 		return (double)fuzzySets[dimension][H].getMembershipValue((float)x);
 	}
 
-
-	/**
-	 *
-	 */
 	public int getDimension() {
 		return fuzzySets.length;
 	}
 
-	/**
-	 *
-	 */
 	public int getFuzzySetNum(int dimension) {
 		return fuzzySets[dimension].length;
 	}
 
-	/**
-	 * Shallow copy
-	 */
 	public void setFuzzySets(FuzzyTermType[][] fuzzySets) {
 		this.fuzzySets = fuzzySets;
 	}

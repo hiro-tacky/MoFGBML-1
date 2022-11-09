@@ -19,10 +19,10 @@ public class HomoTriangleKnowledgeFactoryTest {
 		FuzzyTermType[][] fuzzySets = new FuzzyTermType[dimension][params.length+1];
 		for(int i = 0; i < dimension; i++) {
 			//Don't care
-			fuzzySets[i][0] = new FuzzyTermType("DontCare", FuzzyTermType.TYPE_rectangularShape, new float[] {0f, 1f});
-			for(int j = 0; j < params.length; j++) {
-				fuzzySets[i][j+1] = new FuzzyTermType(String.format("triangularShape_equalDdivision_%2d", j+1), FuzzyTermType.TYPE_triangularShape, params[j]);
-			}
+            fuzzySets[i][0] = new FuzzyTermType(" 0", FuzzyTermType.TYPE_rectangularShape, new float[] {0f, 1f});
+            for(int j = 0; j < params.length; j++) {
+                fuzzySets[i][j+1] = new FuzzyTermType(String.format("%2s", String.valueOf(j+1)), FuzzyTermType.TYPE_triangularShape, params[j]);
+            }
 		}
 
 		HomoTriangleKnowledgeFactory.builder()

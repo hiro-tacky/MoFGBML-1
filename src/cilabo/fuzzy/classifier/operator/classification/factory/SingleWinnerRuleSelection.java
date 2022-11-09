@@ -20,8 +20,9 @@ public class SingleWinnerRuleSelection implements Classification {
 	 */
 	@Override
 	public Rule classify(Classifier classifier, InputVector vector) {
-		if(classifier instanceof  RuleBasedClassifier) {
-			System.err.println("入力instanceはRuleBasedClassifierである必要があります");
+		if(!(classifier instanceof RuleBasedClassifier)) {
+//			return null;
+			System.err.println("Parameter's instance must be instance of RuleBasedClassifier.");
 		}
 
 		List<Rule> ruleSet = ((RuleBasedClassifier)classifier).getRuleSet();

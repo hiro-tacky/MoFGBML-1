@@ -2,13 +2,13 @@ package cilabo.data.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import cilabo.data.DataSet;
 import cilabo.data.DatasetManager;
 import cilabo.labo.developing.fan2021.CommandLineArgs;
 import cilabo.main.Consts;
 import cilabo.utility.Input;
-import utility.Methods;
 
 /** 学習用データ1つ，評価用データ1つのシンプルなデータ分割を保持するクラス.<br>
  * 	this class has one training dataset and one test dataset.
@@ -43,7 +43,7 @@ public class TrainTestDatasetManager implements DatasetManager {
 	 * @return 学習用データセット
 	 */
 	public ArrayList<DataSet> getTrains() {
-		Methods.nullCheck(this.trains, "TrainTestDatasetManagerのtrainsがnull");
+		if(Objects.isNull(this.trains)) {System.err.println("TrainTestDatasetManager is null");}
 		return this.trains;
 	}
 
@@ -51,7 +51,7 @@ public class TrainTestDatasetManager implements DatasetManager {
 	 * @return 評価用データセット
 	 */
 	public ArrayList<DataSet> getTests() {
-		Methods.nullCheck(this.tests, "TrainTestDatasetManagerのtestsがnull");
+		if(Objects.isNull(this.tests)) {System.err.println("TrainTestDatasetManager is null");}
 		return this.tests;
 	}
 

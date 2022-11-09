@@ -112,11 +112,7 @@ public class StaticFuzzyClassifierForTest {
 	 */
 	public static RuleBasedClassifier simpleClassifier(int dim) {
 		float[][] params = HomoTriangle_3.getParams();
-		HomoTriangleKnowledgeFactory.builder()
-								.dimension(dim)
-								.params(params)
-								.build()
-								.create();
+		makeKnowledge(params, dim);
 
 		RuleBasedClassifier classifier = new RuleBasedClassifier();
 		Classification classification = new SingleWinnerRuleSelection();
@@ -125,9 +121,34 @@ public class StaticFuzzyClassifierForTest {
 		PreProcessing preProcessing = new NopPreProcessing();
 		preProcessing.preProcess(classifier);
 
+		makeRules(classifier);
 
-		for(int i=1; i<4; i++) {
-			for(int j=1; j<4; j++) {
+		// Post Processing
+		PostProcessing postProcessing = new SimplePostProcessing();
+		postProcessing.postProcess(classifier);
+
+		return classifier;
+	}
+
+	/** knowledgeを生成
+	 * @param params 分割区間のパラメータ
+	 * @param dim データセットの次元数
+	 */
+	public static void makeKnowledge(float[][] params, int dim) {
+		HomoTriangleKnowledgeFactory.builder()
+								.dimension(dim)
+								.params(params)
+								.build()
+								.create();
+	}
+
+	/**
+	 * classifierにルールを追加
+	 * @param classifier 識別器
+	 */
+	public static void makeRules(RuleBasedClassifier classifier) {
+		for(int i=1; i<Knowledge.getInstace().getFuzzySetNum(0); i++) {
+			for(int j=1; j<Knowledge.getInstace().getFuzzySetNum(0); j++) {
 				int[] buf = {i, j};
 				Antecedent antecedent = new Antecedent(Knowledge.getInstace(), buf);
 
@@ -143,11 +164,5 @@ public class StaticFuzzyClassifierForTest {
 				classifier.addRule(rule);
 			}
 		}
-
-		// Post Processing
-		PostProcessing postProcessing = new SimplePostProcessing();
-		postProcessing.postProcess(classifier);
-
-		return classifier;
 	}
 }

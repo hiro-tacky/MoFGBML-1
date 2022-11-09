@@ -17,13 +17,8 @@ public class SimplePostProcessing implements PostProcessing {
 	 */
 	@Override
 	public Classifier postProcess(Classifier classifier) {
-		try {
-			if(classifier.getClass() != RuleBasedClassifier.class) throw new IllegalArgumentException("argument must be [FuzzyClassifier]");
-		}
-		catch(IllegalArgumentException e) {
-			System.out.println(e);
-			e.printStackTrace();
-			return null;
+		if(!(classifier instanceof RuleBasedClassifier)) {
+			System.err.println("argument instance must be instance of RuleBasedClassifier.");
 		}
 
 		classifier = remove((RuleBasedClassifier)classifier);
