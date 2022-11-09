@@ -15,19 +15,21 @@ public class TrainTestDatasetManagerTest {
 	private static String trainFile;
 	private static String testFile;
 	private static TrainTestDatasetManager TDM;
+	static ArrayList<DataSet> trains;
+	static ArrayList<DataSet> tests;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     	trainFile = "dataset\\cilabo\\test_Dtra.dat";
     	testFile = "dataset\\cilabo\\test_Dtst.dat";
     	TDM = new TrainTestDatasetManager();
+    	TDM.loadTrainTestFiles(trainFile, testFile);
+    	trains = TDM.getTrains();
+    	tests = TDM.getTests();
     }
 
 	@Test
 	public void loadTrainTestFiles() {
-		TDM.loadTrainTestFiles(trainFile, testFile);
-		ArrayList<DataSet> trains = TDM.getTrains();
-		ArrayList<DataSet> tests = TDM.getTests();
 
 		assertEquals(2, trains.get(0).getNdim());
 		assertEquals(4, trains.get(0).getCnum());
@@ -71,7 +73,5 @@ public class TrainTestDatasetManagerTest {
 			Integer classLabelBuf = i/25;
 			assertEquals(classLabelBuf, pattern_i.getTrueClass().getClassLabel());
 		}
-
 	}
-
 }

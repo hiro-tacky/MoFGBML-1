@@ -62,14 +62,16 @@ public class Antecedent {
 	public double getCompatibleGrade(double[] x) {
 		double grade = 1;
 		for(int i = 0; i < x.length; i++) {
-			if(antecedentIndex[i] < 0) {
+			if(antecedentIndex[i] < 0 && x[i] < 0) {
 				// categorical
 				if(antecedentIndex[i] == (int)x[i]) grade *= 1.0;
 				else grade *= 0.0;
 			}
-			else {
+			else if(antecedentIndex[i] >= 0 && x[i] >= 0){
 				// numerical
 				grade *= antecedentFuzzySets[i].getMembershipValue((float)x[i]);
+			}else{
+				grade *= 1.0;
 			}
 		}
 		return grade;

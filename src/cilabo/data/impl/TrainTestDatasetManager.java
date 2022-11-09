@@ -15,9 +15,9 @@ import cilabo.utility.Input;
  *  */
 public class TrainTestDatasetManager implements DatasetManager {
 	// ** 学習用データセット <br>training dataset*/
-	ArrayList<DataSet> trains = new ArrayList<>();
+	final ArrayList<DataSet> trains = new ArrayList<>();
 	// ** 評価用データセット <br>test dataset*/
-	ArrayList<DataSet> tests = new ArrayList<>();
+	final ArrayList<DataSet> tests = new ArrayList<>();
 
 	/** 空のインスタンスを生成します <br> Constructs an empty instance of class */
 	public TrainTestDatasetManager() {
@@ -62,6 +62,7 @@ public class TrainTestDatasetManager implements DatasetManager {
 	 * @return 生成されたTrainTestDatasetManagerインスタンス
 	 */
 	public TrainTestDatasetManager loadTrainTestFiles(String trainFile, String testFile) {
+		if(Objects.isNull(trainFile) || Objects.isNull(testFile)) {System.err.println("fileNameString is null");}
 
 		DataSet train = new DataSet();
 		Input.inputSingleLabelDataSet(train, trainFile);

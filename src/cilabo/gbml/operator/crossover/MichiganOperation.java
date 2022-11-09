@@ -26,6 +26,7 @@ import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
 import cilabo.fuzzy.rule.consequent.ConsequentFactory;
 import cilabo.gbml.component.replacement.RuleAdditionStyleReplacement;
+import cilabo.gbml.component.replacement.RuleReplacementStyleReplacement;
 import cilabo.gbml.component.variation.MichiganSolutionVariation;
 import cilabo.gbml.operator.heuristic.HeuristicRuleGeneration;
 import cilabo.gbml.operator.mutation.MichiganMutation;
@@ -218,7 +219,8 @@ public class MichiganOperation implements CrossoverOperator<IntegerSolution> {
 		}
 
 		/* Replacement: Single objective maximization repelacement */
-		Replacement<IntegerSolution> replacement = new RuleAdditionStyleReplacement();
+//		Replacement<IntegerSolution> replacement = new RuleAdditionStyleReplacement();
+		Replacement<IntegerSolution> replacement = new RuleReplacementStyleReplacement();
 		List<IntegerSolution> currentList = new ArrayList<>();
 		//Deep copy
 		for(int i = 0; i < parent.getMichiganPopulation().size(); i++) {
