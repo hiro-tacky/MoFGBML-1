@@ -1,17 +1,20 @@
 package cilabo.data;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import cilabo.utility.Random;
 
 public class InputVectorTest {
 
 	private static InputVector inputVector;
 	private static double[] vector;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpBeforeClass() {
+		Random.getInstance().initRandom(2022);
 		vector = new double[] {0d, 1/3d, 2/3d, 1d};
 		inputVector = new InputVector(vector);
 	}

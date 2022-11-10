@@ -1,14 +1,15 @@
 package cilabo.data.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
+import cilabo.utility.Random;
 
 public class TrainTestDatasetManagerTest {
 
@@ -18,8 +19,10 @@ public class TrainTestDatasetManagerTest {
 	static ArrayList<DataSet> trains;
 	static ArrayList<DataSet> tests;
 
-    @BeforeClass
+
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
+    	Random.getInstance().initRandom(2022);
     	trainFile = "dataset\\cilabo\\test_Dtra.dat";
     	testFile = "dataset\\cilabo\\test_Dtst.dat";
     	TDM = new TrainTestDatasetManager();

@@ -18,6 +18,7 @@ import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
 import cilabo.fuzzy.rule.consequent.RuleWeight;
 import cilabo.utility.Input;
+import cilabo.utility.Random;
 
 class RuleBasedClassifierTest extends RuleBasedClassifier {
 
@@ -26,6 +27,7 @@ class RuleBasedClassifierTest extends RuleBasedClassifier {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		Random.getInstance().initRandom(2022);
 		String sep = File.separator;
 		String dataName = "dataset" + sep + "cilabo" + sep + "test2_Dtra.dat";
 		train = new DataSet();

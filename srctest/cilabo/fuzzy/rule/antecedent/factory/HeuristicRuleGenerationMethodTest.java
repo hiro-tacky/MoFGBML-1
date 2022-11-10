@@ -10,11 +10,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import cilabo.data.DataSet;
+import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.utility.Input;
+import cilabo.utility.Random;
 
 public class HeuristicRuleGenerationMethodTest {
 
@@ -22,15 +24,17 @@ public class HeuristicRuleGenerationMethodTest {
 	static DataSet train;
 	static Integer[] samplingIndex;
 	static HeuristicRuleGenerationMethod factory;
+	static int dimension;
 
 	@BeforeAll
 	public static void beforeAll() {
+		Random.getInstance().initRandom(2022);
 		String sep = File.separator;
 		String dataName = "dataset" + sep + "cilabo" + sep + "test2_Dtra.dat";
 		train = new DataSet();
 		Input.inputSingleLabelDataSet(train, dataName);
 
-		int dimension = train.getNdim();
+		dimension = train.getNdim();
 		float[][] params = HomoTriangle_3.getParams();
 		HomoTriangleKnowledgeFactory.builder()
 		.dimension(dimension)
@@ -38,8 +42,8 @@ public class HeuristicRuleGenerationMethodTest {
 		.build()
 		.create();
 
-		samplingIndex = new Integer[] {0, 60, 120};
-		// dataset[0] = {0, 0}; dataset[60] = {0.5, 0.5}; dataset[120] = {1 1};
+		samplingIndex = new Integer[] {0, 5, 60, 120};
+		// dataset[0] = {0, 0}; dataset[5] = {0, 0.5}; dataset[60] = {0.5, 0.5}; dataset[120] = {1 1};
 		factory = HeuristicRuleGenerationMethod.builder()
 				.train(train)
 				.samplingIndex(samplingIndex)
@@ -52,7 +56,7 @@ public class HeuristicRuleGenerationMethodTest {
         // メソッドをアクセス制限を解除
         method.setAccessible(true);
         int[][] actual = {
-        		{1, 1}, {2, 2}, {3, 3}
+        		{1, 1}, {1, 2}, {2, 2}, {3, 3}
         };
         for(int i=0; i<samplingIndex.length; i++) {
         	// メソッド呼び出し
@@ -63,36 +67,53 @@ public class HeuristicRuleGenerationMethodTest {
 	}
 
 	@Test
-	public void testHeuristicRuleGeneration() {
+	public void testHeuristicRuleGeneration2() {
+        int[][] actual = {
+        		{1, 1}, {1, 2}, {2, 2}, {3, 3}
+        };
+        for(int i=0; i<samplingIndex.length; i++) {
+        	Antecedent antecedent = factory.create();
+        	assertArrayEquals(actual[i], antecedent.getAntecedentIndex());
+        	// 結果をアサーション
+        	for(int j=0; j<dimension; j++) {
+        		assertEquals(Knowledge.getInstace().getFuzzySet(j, actual[i][j]), antecedent.getAntecedentFuzzySetAt(j));
+        	}
+        }
+	}
 
+	@Test
+	public void testHeuristicRuleGeneration() {
+		Random.getInstance().initRandom(2022);
 		String sep = File.separator;
 		String dataName = "dataset" + sep + "iris" + sep + "a0_0_iris-10tra.dat";
 		train = new DataSet();
 		Input.inputSingleLabelDataSet(train, dataName);
 
-		int dimension = train.getNdim();
+		dimension = train.getNdim();
 		float[][] params = HomoTriangle_2_3_4_5.getParams();
 		HomoTriangleKnowledgeFactory.builder()
-		.dimension(dimension)
-		.params(params)
-		.build()
-		.create();
+			.dimension(dimension)
+			.params(params)
+			.build()
+			.create();
 
-		Antecedent antecedent = factory.create();
-		String actual = " 7,  8,  6, 10";
-		String expected = antecedent.toString();
-		assertEquals(expected, actual);
+		samplingIndex = new Integer[]{0, 1, 2, 3};
 
-		antecedent = factory.create();
-		actual = " 3,  7, 10,  1";
-		expected = antecedent.toString();
-		assertEquals(expected, actual);
+		factory = HeuristicRuleGenerationMethod.builder()
+			.train(train)
+			.samplingIndex(samplingIndex)
+			.build();
 
-		antecedent = factory.create();
-		assertEquals(null, antecedent);
 
-		antecedent = factory.create();
-		assertEquals(null, antecedent);
-
+		int[][]actual = {
+				{4, 1, 4, 6}, {7, 11, 11, 4}, {6, 1, 3, 10}, {6, 4, 4, 3}
+		};
+		for(int i=0; i<samplingIndex.length; i++) {
+			Antecedent antecedent = factory.create();
+        	assertArrayEquals(actual[i], antecedent.getAntecedentIndex());
+			for(int j=0; j<dimension; j++) {
+				assertEquals(Knowledge.getInstace().getFuzzySet(j, actual[i][j]), antecedent.getAntecedentFuzzySetAt(j));
+			}
+		}
 	}
 }

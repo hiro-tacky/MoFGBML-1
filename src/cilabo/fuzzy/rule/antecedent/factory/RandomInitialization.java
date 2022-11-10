@@ -88,7 +88,6 @@ public class RandomInitialization implements AntecedentFactory {
 
 		/**
 		 * @param seed : int
-		 * @param knowledge : Knowledge
 		 * @param train : DataSet
 		 */
 		public RandomInitialization build() {

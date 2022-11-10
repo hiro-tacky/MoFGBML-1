@@ -1,13 +1,20 @@
 package cilabo.fuzzy.knowledge;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
+import cilabo.utility.Random;
 
 public class KnowledgeTest {
+
+    @BeforeAll
+    public static void setUpBeforeClass(){
+    	Random.getInstance().initRandom(2022);
+    }
 
 	@Test
 	public void testHomoTriangle_2_3_4_5() {

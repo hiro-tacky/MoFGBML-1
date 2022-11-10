@@ -1,9 +1,11 @@
 package cilabo.data;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import cilabo.utility.Random;
 
 public class PatternTest {
 
@@ -14,8 +16,9 @@ public class PatternTest {
 	static double[] inputVectorExpected;
 	static Integer[] classLabelExpected;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass(){
+    	Random.getInstance().initRandom(2022);
     	inputVectorExpected = new double[] {0d, 1/3d, 2/3d, 1d};
 		inputVector = new InputVector(inputVectorExpected);
 

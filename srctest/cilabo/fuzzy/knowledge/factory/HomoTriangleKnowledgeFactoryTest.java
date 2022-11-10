@@ -2,13 +2,20 @@ package cilabo.fuzzy.knowledge.factory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
+import cilabo.utility.Random;
 import jfml.term.FuzzyTermType;
 
 public class HomoTriangleKnowledgeFactoryTest {
+
+    @BeforeAll
+    public static void setUpBeforeClass(){
+    	Random.getInstance().initRandom(2022);
+    }
 
 	@Test
 	public void testCreate() {

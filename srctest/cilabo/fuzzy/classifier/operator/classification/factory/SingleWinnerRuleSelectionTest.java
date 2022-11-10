@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import cilabo.data.DataSet;
@@ -13,8 +14,14 @@ import cilabo.fuzzy.StaticFuzzyClassifierForTest;
 import cilabo.fuzzy.classifier.RuleBasedClassifier;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.utility.Input;
+import cilabo.utility.Random;
 
 class SingleWinnerRuleSelectionTest {
+
+    @BeforeAll
+    public static void setUpBeforeClass(){
+    	Random.getInstance().initRandom(2022);
+    }
 
 	@Test
 	void test() {

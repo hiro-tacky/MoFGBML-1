@@ -16,23 +16,29 @@ import cilabo.utility.Random;
  */
 public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 
-	/**  */
+	/**  学習用データ*/
 	DataSet train;
 	/** Internal parameter */
 	int[] antecedents;
-	/** */
+	/** 選択時の学習に用いるパターンのidリスト*/
 	Integer[] samplingIndex;
 
-	/** Internal parameter */
+	/** Internal parameter head番目の前件部を生成する*/
 	int head = 0;
 
-	// ************************************************************
-	// Constructor
+	/**コンストラクタ
+	 * @param train 学習用データ
+	 * @param samplingIndex 選択時の学習に用いるパターンのidリスト
+	 */
 	public HeuristicRuleGenerationMethod(DataSet train, Integer[] samplingIndex) {
 		this.train = train;
 		this.samplingIndex = samplingIndex;
 	}
 
+	/** 前件部のファジィ集合のidを決定する
+	 * @param head 生成する前件部の番目
+	 * @return 決定された前件部のFuzzyTermTypeのidリスト
+	 */
 	private int[] selectAntecedentPart(int head) {
 		int dimension = train.getNdim();
 		Pattern pattern = train.getPattern(samplingIndex[head]);
@@ -101,30 +107,45 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 	}
 
 
+	/** ヒューリスティックに基づいた前件部のcreatorを生成
+	 * @return 生成されたcreator(factory design)
+	 */
 	public static HeuristicRuleGenerationMethod.HeuristicRuleGenerationMethodBuilder builder() {
 		return new HeuristicRuleGenerationMethodBuilder();
 	}
 
+	/**ヒューリスティックに基づいた前件部のcreator
+	 * @author hirot
+	 *
+	 */
 	public static class HeuristicRuleGenerationMethodBuilder {
 		private DataSet train;
 		private Integer[] samplingIndex;
 
 		HeuristicRuleGenerationMethodBuilder() {}
 
+		/**生成する前件部で使用するパターンのリストを設計図に書き込む
+		 * @param samplingIndex
+		 * @return 記入済み設計図
+		 */
 		public HeuristicRuleGenerationMethod.HeuristicRuleGenerationMethodBuilder samplingIndex(Integer[] samplingIndex) {
 			this.samplingIndex = samplingIndex;
 			return this;
 		}
 
+		/** 生成する前件部の選択時に使用する学習用データを設計図に書き込む
+		 * @param train
+		 * @return 記入済み設計図
+		 */
 		public HeuristicRuleGenerationMethod.HeuristicRuleGenerationMethodBuilder train(DataSet train) {
 			this.train = train;
 			return this;
 		}
 
-		/**
-		 * @param seed : int
+		/** 設計図を基にproductを生成する.インスタンス自体はcreate()で生成．
 		 * @param train : DataSet
 		 * @param samplingIndex : Integer[]
+		 * @see cilabo.fuzzy.rule.antecedent.factory.HeuristicRuleGenerationMethod
 		 */
 		public HeuristicRuleGenerationMethod build() {
 			return new HeuristicRuleGenerationMethod(train, samplingIndex);

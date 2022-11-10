@@ -1,10 +1,18 @@
 package cilabo.data;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import cilabo.utility.Random;
 
 public class ClassLabelTest {
+
+    @BeforeAll
+    public static void setUpBeforeClass(){
+    	Random.getInstance().initRandom(2022);
+    }
 
 	@Test
 	public void testSingleLabel() {

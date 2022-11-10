@@ -1,20 +1,22 @@
 package cilabo.data;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import cilabo.utility.Input;
+import cilabo.utility.Random;
 
 public class DataSetTest {
 
 	private static DataSet dataset;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
+    	Random.getInstance().initRandom(2022);
     	dataset = new DataSet();
     	String fileName = "dataset\\cilabo\\test_Dtra.dat";
 		Input.inputSingleLabelDataSet(dataset, fileName);

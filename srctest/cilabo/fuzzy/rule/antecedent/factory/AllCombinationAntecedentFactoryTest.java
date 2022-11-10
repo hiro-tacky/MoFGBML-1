@@ -1,15 +1,23 @@
 package cilabo.fuzzy.rule.antecedent.factory;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
+import cilabo.utility.Random;
 
 public class AllCombinationAntecedentFactoryTest {
+
+    @BeforeAll
+    public static void setUpBeforeClass(){
+    	Random.getInstance().initRandom(2022);
+    }
+
 	@Test
 	public void testAllCombination() {
 		int dimension = 2;
