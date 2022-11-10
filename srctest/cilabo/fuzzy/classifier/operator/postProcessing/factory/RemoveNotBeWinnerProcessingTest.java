@@ -14,7 +14,6 @@ import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
 import cilabo.fuzzy.classifier.operator.preProcessing.PreProcessing;
 import cilabo.fuzzy.classifier.operator.preProcessing.factory.NopPreProcessing;
-import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
@@ -46,7 +45,7 @@ class RemoveNotBeWinnerProcessingTest {
 				//falseでルール重みの必ず勝てないルールを追加
 				for(boolean k: new boolean[]{true, false}) {
 					int[] buf = {i, j};
-					Antecedent antecedent = new Antecedent(Knowledge.getInstace(), buf);
+					Antecedent antecedent = new Antecedent(buf);
 
 					ClassLabel classLabel = new ClassLabel();
 					Integer[] buf2;

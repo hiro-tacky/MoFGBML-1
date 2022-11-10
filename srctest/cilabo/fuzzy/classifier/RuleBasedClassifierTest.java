@@ -68,7 +68,7 @@ class RuleBasedClassifierTest extends RuleBasedClassifier {
 	@Test
 	void testAddRule() {
 		int[] antecedent_expected = {0, 0};
-		Antecedent antecedent = new Antecedent(Knowledge.getInstace(), antecedent_expected);
+		Antecedent antecedent = new Antecedent(antecedent_expected);
 
 		ClassLabel classLabel = new ClassLabel();
 		Integer classLabel_expected = -1;

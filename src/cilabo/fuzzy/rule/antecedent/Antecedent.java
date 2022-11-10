@@ -30,7 +30,7 @@ public class Antecedent {
 	 * @param knowledge
 	 * @param antecedentIndex : Shallow copy
 	 */
-	public Antecedent(Knowledge knowledge, int[] antecedentIndex) {
+	public Antecedent(int[] antecedentIndex) {
 		this.antecedentIndex = antecedentIndex;
 		this.antecedentFuzzySets = new FuzzyTermType[antecedentIndex.length];
 		for(int i = 0; i < antecedentIndex.length; i++) {
@@ -40,7 +40,7 @@ public class Antecedent {
 			}
 			else {
 				// Numerical
-				antecedentFuzzySets[i] = knowledge.getFuzzySet(i, antecedentIndex[i]);
+				antecedentFuzzySets[i] = Knowledge.getInstace().getFuzzySet(i, antecedentIndex[i]);
 			}
 		}
 	}
@@ -160,15 +160,9 @@ public class Antecedent {
 	}
 
 	public static class AntecedentBuilder {
-		private Knowledge knowledge;
 		private int[] antecedentIndex;
 
 		AntecedentBuilder() {}
-
-		public Antecedent.AntecedentBuilder knowledge(Knowledge knowledge) {
-			this.knowledge = knowledge;
-			return this;
-		}
 
 		public Antecedent.AntecedentBuilder antecedentIndex(int[] antecedentIndex) {
 			this.antecedentIndex = antecedentIndex;
@@ -180,7 +174,7 @@ public class Antecedent {
 		 * @param antecedentIndex : int[]
 		 */
 		public Antecedent build() {
-			return new Antecedent(knowledge, antecedentIndex);
+			return new Antecedent(antecedentIndex);
 		}
 	}
 

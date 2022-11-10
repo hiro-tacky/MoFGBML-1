@@ -66,7 +66,6 @@ public class MichiganSolution extends DefaultIntegerSolution implements IntegerS
 			antecedentIndex[i] = this.getVariable(i);
 		}
 		Antecedent antecedent = Antecedent.builder()
-								.knowledge(knowledge)
 								.antecedentIndex(antecedentIndex)
 								.build();
 		return antecedent;
@@ -82,7 +81,6 @@ public class MichiganSolution extends DefaultIntegerSolution implements IntegerS
 			antecedentIndex[i] = this.getVariable(i);
 		}
 		Antecedent antecedent = Antecedent.builder()
-								.knowledge(knowledge)
 								.antecedentIndex(antecedentIndex)
 								.build();
 

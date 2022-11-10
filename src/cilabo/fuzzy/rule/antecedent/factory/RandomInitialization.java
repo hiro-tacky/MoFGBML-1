@@ -14,16 +14,12 @@ public class RandomInitialization implements AntecedentFactory {
 	MersenneTwisterFast uniqueRnd;
 
 	/**  */
-	Knowledge knowledge;
-
-	/**  */
 	DataSet train;
 
 	// ************************************************************
 	// Constructor
-	public RandomInitialization(int seed, Knowledge knowledge, DataSet train) {
+	public RandomInitialization(int seed, DataSet train) {
 		this.uniqueRnd = new MersenneTwisterFast(seed);
-		this.knowledge = knowledge;
 		this.train = train;
 	}
 
@@ -32,7 +28,7 @@ public class RandomInitialization implements AntecedentFactory {
 
 	@Override
 	public Antecedent create() {
-		int dimension = knowledge.getDimension();
+		int dimension = Knowledge.getInstace().getDimension();
 		double dcRate;
 		if(Consts.IS_PROBABILITY_DONT_CARE) {
 			// Constant Value
@@ -60,21 +56,15 @@ public class RandomInitialization implements AntecedentFactory {
 				}
 				else {
 					// Numerical
-					antecedentIndex[n] = uniqueRnd.nextInt(knowledge.getFuzzySetNum(n));
+					antecedentIndex[n] = uniqueRnd.nextInt(Knowledge.getInstace().getFuzzySetNum(n));
 				}
 			}
 		}
 
 		return Antecedent.builder()
-						.knowledge(knowledge)
 						.antecedentIndex(antecedentIndex)
 						.build();
 	}
-
-	public Knowledge getKnowledge() {
-		return this.knowledge;
-	}
-
 
 	public static RandomInitialization.RandomInitializationBuilder builder(){
 		return new RandomInitializationBuilder();
@@ -82,18 +72,12 @@ public class RandomInitialization implements AntecedentFactory {
 
 	public static class RandomInitializationBuilder {
 		private int seed = -1;
-		private Knowledge knowledge;
 		private DataSet train;
 
 		RandomInitializationBuilder() {}
 
 		public RandomInitialization.RandomInitializationBuilder seed(int seed) {
 			this.seed = seed;
-			return this;
-		}
-
-		public RandomInitialization.RandomInitializationBuilder knowledge(Knowledge knowledge) {
-			this.knowledge = knowledge;
 			return this;
 		}
 
@@ -108,7 +92,7 @@ public class RandomInitialization implements AntecedentFactory {
 		 * @param train : DataSet
 		 */
 		public RandomInitialization build() {
-			return new RandomInitialization(seed, knowledge, train);
+			return new RandomInitialization(seed, train);
 		}
 	}
 

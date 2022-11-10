@@ -128,7 +128,6 @@ public class Test {
 		PreProcessing preProcessing = new NopPreProcessing();
 
 		AntecedentFactory antecedentFactory = AllCombinationAntecedentFactory.builder()
-												.knowledge(Knowledge.getInstace())
 												.build();
 		int ruleNum = ((AllCombinationAntecedentFactory)antecedentFactory).getRuleNum();
 

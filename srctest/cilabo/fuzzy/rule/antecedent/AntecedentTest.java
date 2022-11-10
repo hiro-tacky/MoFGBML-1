@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3_4_5;
@@ -23,7 +22,6 @@ public class AntecedentTest {
 								.create();
 
 		Antecedent antecedent = Antecedent.builder()
-								.knowledge(Knowledge.getInstace())
 								.antecedentIndex(antecedentIndex)
 								.build();
 
@@ -45,7 +43,6 @@ public class AntecedentTest {
 
 		int[] antecedentIndex = new int[] {-1, 0, -2};
 		Antecedent antecedent = Antecedent.builder()
-									.knowledge(Knowledge.getInstace())
 									.antecedentIndex(antecedentIndex)
 									.build();
 

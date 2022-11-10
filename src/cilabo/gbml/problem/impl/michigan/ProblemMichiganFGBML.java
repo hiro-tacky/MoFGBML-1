@@ -50,7 +50,6 @@ public class ProblemMichiganFGBML<S extends Solution<?>> extends AbstractMichiga
 				.create();
 		AntecedentFactory antecedentFactory = RandomInitialization.builder()
 				.seed(seed)
-				.knowledge(Knowledge.getInstace())
 				.train(train)
 				.build();
 		ConsequentFactory consequentFactory = MoFGBML_Learning.builder()

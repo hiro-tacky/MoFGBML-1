@@ -13,7 +13,6 @@ import cilabo.fuzzy.classifier.operator.postProcessing.PostProcessing;
 import cilabo.fuzzy.classifier.operator.postProcessing.factory.SimplePostProcessing;
 import cilabo.fuzzy.classifier.operator.preProcessing.PreProcessing;
 import cilabo.fuzzy.classifier.operator.preProcessing.factory.NopPreProcessing;
-import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.Rule;
@@ -45,7 +44,7 @@ public class FuzzyClassifierMain {
 												.create();
 
 		// Learning Fuzzy Classifier
-		RuleBasedClassifier classifier = makeSingleLabelClassifier(train, Knowledge.getInstace());
+		RuleBasedClassifier classifier = makeSingleLabelClassifier(train);
 
 		// Evaluation
 		int numberOfRules = classifier.getRuleNum();
@@ -60,11 +59,10 @@ public class FuzzyClassifierMain {
 		return;
 	}
 
-	public static RuleBasedClassifier makeSingleLabelClassifier(DataSet train, Knowledge knowledge) {
+	public static RuleBasedClassifier makeSingleLabelClassifier(DataSet train) {
 		PreProcessing preProcessing = new NopPreProcessing();
 
 		AntecedentFactory antecedentFactory = AllCombinationAntecedentFactory.builder()
-												.knowledge(knowledge)
 												.build();
 		int initRuleNum = ((AllCombinationAntecedentFactory)antecedentFactory).getRuleNum();
 

@@ -1,5 +1,7 @@
 package cilabo.fuzzy.knowledge;
 
+import java.util.Objects;
+
 import org.w3c.dom.Element;
 
 import jfml.term.FuzzyTermType;
@@ -32,6 +34,7 @@ public class Knowledge {
 	 * @return dim次元H番目のファジィセット
 	 */
 	public FuzzyTermType getFuzzySet(int dimension, int H) {
+		if(Objects.isNull(fuzzySets)) {System.err.println("Knowledge hasn't been initialised");}
 		return fuzzySets[dimension][H];
 	}
 
@@ -42,14 +45,17 @@ public class Knowledge {
 	 * @return dim次元H番目のファジィセット
 	 */
 	public double getMembershipValue(double x, int dimension, int H) {
+		if(Objects.isNull(fuzzySets)) {System.err.println("Knowledge hasn't been initialised");}
 		return (double)fuzzySets[dimension][H].getMembershipValue((float)x);
 	}
 
 	public int getDimension() {
+		if(Objects.isNull(fuzzySets)) {System.err.println("Knowledge hasn't been initialised");}
 		return fuzzySets.length;
 	}
 
 	public int getFuzzySetNum(int dimension) {
+		if(Objects.isNull(fuzzySets)) {System.err.println("Knowledge hasn't been initialised");}
 		return fuzzySets[dimension].length;
 	}
 

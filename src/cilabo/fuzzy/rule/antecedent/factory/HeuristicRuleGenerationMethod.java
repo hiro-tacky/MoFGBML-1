@@ -15,9 +15,6 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 	// Fields
 
 	/**  */
-	Knowledge knowledge;
-
-	/**  */
 	DataSet train;
 
 	/** */
@@ -28,8 +25,7 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 
 	// ************************************************************
 	// Constructor
-	public HeuristicRuleGenerationMethod(Knowledge knowledge, DataSet train, Integer[] samplingIndex) {
-		this.knowledge = knowledge;
+	public HeuristicRuleGenerationMethod(DataSet train, Integer[] samplingIndex) {
 		this.train = train;
 		this.samplingIndex = samplingIndex;
 	}
@@ -73,12 +69,12 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 			}
 
 			// Numerical
-			int fuzzySetNum = knowledge.getFuzzySetNum(n)-1;
+			int fuzzySetNum = Knowledge.getInstace().getFuzzySetNum(n)-1;
 			double[] membershipValueRoulette = new double[fuzzySetNum];
 			double sumMembershipValue = 0;
 			membershipValueRoulette[0] = 0;
 			for(int h = 0; h < fuzzySetNum; h++) {
-				sumMembershipValue += knowledge.getMembershipValue(vector[n], n, h+1);
+				sumMembershipValue += Knowledge.getInstace().getMembershipValue(vector[n], n, h+1);
 				membershipValueRoulette[h] = sumMembershipValue;
 			}
 
@@ -93,13 +89,8 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 		}
 
 		return Antecedent.builder()
-				.knowledge(knowledge)
 				.antecedentIndex(antecedentIndex)
 				.build();
-	}
-
-	public Knowledge getKnowledge() {
-		return this.knowledge;
 	}
 
 	public void setSamplingIndex(Integer[] samplingIndex) {
@@ -113,16 +104,10 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 	}
 
 	public static class HeuristicRuleGenerationMethodBuilder {
-		private Knowledge knowledge;
 		private DataSet train;
 		private Integer[] samplingIndex;
 
 		HeuristicRuleGenerationMethodBuilder() {}
-
-		public HeuristicRuleGenerationMethod.HeuristicRuleGenerationMethodBuilder knowledge(Knowledge knowledge){
-			this.knowledge = knowledge;
-			return this;
-		}
 
 		public HeuristicRuleGenerationMethod.HeuristicRuleGenerationMethodBuilder samplingIndex(Integer[] samplingIndex) {
 			this.samplingIndex = samplingIndex;
@@ -141,7 +126,7 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 		 * @param samplingIndex : Integer[]
 		 */
 		public HeuristicRuleGenerationMethod build() {
-			return new HeuristicRuleGenerationMethod(knowledge, train, samplingIndex);
+			return new HeuristicRuleGenerationMethod(train, samplingIndex);
 		}
 	}
 }

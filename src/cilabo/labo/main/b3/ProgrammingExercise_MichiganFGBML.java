@@ -183,7 +183,6 @@ public class ProgrammingExercise_MichiganFGBML {
 		// Test Rule: 0 4 0 3 3 0 0 0
 		int[] antecedentIndex = new int[] {0, 4, 0, 3, 3, 0, 0, 0};
 		Antecedent antecedent = Antecedent.builder()
-								.knowledge(Knowledge.getInstace())
 								.antecedentIndex(antecedentIndex)
 								.build();
 		ConsequentFactory consequentFactory = new MoFGBML_Learning(train);
@@ -204,15 +203,12 @@ public class ProgrammingExercise_MichiganFGBML {
 		 */
 		Antecedent[] antecedents = new Antecedent[3];
 		antecedents[0] = Antecedent.builder()
-				.knowledge(Knowledge.getInstace())
 				.antecedentIndex(new int[] {0, 0, 0, 2, 0, 0, 0, 0})
 				.build();
 		antecedents[1] = Antecedent.builder()
-				.knowledge(Knowledge.getInstace())
 				.antecedentIndex(new int[] {0, 4, 0, 0, 3, 0, 0, 4})
 				.build();
 		antecedents[2] = Antecedent.builder()
-				.knowledge(Knowledge.getInstace())
 				.antecedentIndex(new int[] {0, 1, 0, 3, 1, 2, 0, 0})
 				.build();
 

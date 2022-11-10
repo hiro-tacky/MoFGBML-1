@@ -1,63 +1,62 @@
 package cilabo.fuzzy.rule.antecedent.factory;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
+
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.antecedent.AntecedentFactory;
 
+/** KB上の全てのファジィ集合の組み合わせを持つ前件部を生成
+ * @author hirot
+ *
+ */
 public class AllCombinationAntecedentFactory implements AntecedentFactory {
-	// ************************************************************
-	// Fields
-	/**  */
-	Knowledge knowledge;
-
 	/** Internal parameter */
 	int[][] antecedents;
 	private int head = 0;
 
-	// ************************************************************
-	// Constructor
-	public AllCombinationAntecedentFactory(Knowledge knowledge) {
-		this.knowledge = knowledge;
+	/**
+	 * コンストラクタ
+	 */
+	public AllCombinationAntecedentFactory() {
 		init();
 	}
 
-	// ************************************************************
-	// Methods
+	/**
+	 * 全ての組わせを生成する．
+	 */
+	private void init() {
+		int dimension = Knowledge.getInstace().getDimension();
 
-	public void init() {
-		int dimension = knowledge.getDimension();
-		int[] fuzzySetNum = new int[dimension];
-		int ruleNum = 1;
+		Queue<ArrayList<Integer>> que = new ArrayDeque<>();
+		ArrayList<ArrayList<Integer>> ids = new ArrayList<>();
 
-		for(int i = 0; i < dimension; i++) {
-			fuzzySetNum[i] = knowledge.getFuzzySetNum(i);
-			ruleNum *= fuzzySetNum[i];
+		que.add(new ArrayList<Integer>());
+
+		while(!que.isEmpty()){
+			ArrayList<Integer> buf = que.poll();
+			int dim_i = buf.size();
+			if(dim_i < dimension) {
+				for(int i=0; i < Knowledge.getInstace().getFuzzySetNum(dim_i); i++) {
+					ArrayList<Integer> tmp = (ArrayList<Integer>) buf.clone();
+					tmp.add(i);
+					que.add(tmp);
+				}
+			}else {
+				ids.add(buf);
+			}
 		}
 
 		// Antecedent Part
-		antecedents = new int[ruleNum][dimension];
-		for(int i = 0; i < dimension; i++) {
-			int rule_i = 0;
-			int repeatNum = 1;
-			int interval = 1;
-			int count = 0;
-			for(int j = 0; j < i; j++) {
-				repeatNum *= fuzzySetNum[j];
-			}
-			for(int j = i+1; j< dimension; j++) {
-				interval *= fuzzySetNum[j];
-			}
-			for(int j = 0; j < repeatNum; j++) {
-				count = 0;
-				for(int k = 0; k < fuzzySetNum[i]; k++) {
-					for(int l = 0; l < interval; l++) {
-						antecedents[rule_i][i] = count;
-						rule_i++;
-					}
-					count++;
-				}
+		antecedents = new int[ids.size()][dimension];
+		for(int i=0; i<ids.size(); i++) {
+			for(int dim_i=0; dim_i<dimension; dim_i++) {
+				antecedents[i][dim_i] = ids.get(i).get(dim_i);
 			}
 		}
+
 	}
 
 	/**
@@ -71,17 +70,8 @@ public class AllCombinationAntecedentFactory implements AntecedentFactory {
 		head++;
 
 		return Antecedent.builder()
-						.knowledge(knowledge)
 						.antecedentIndex(antecedentIndex)
 						.build();
-	}
-
-	public void setKnowledge(Knowledge knowledge) {
-		this.knowledge = knowledge;
-	}
-
-	public Knowledge getKnowledge() {
-		return this.knowledge;
 	}
 
 	public int getRuleNum() {
@@ -93,20 +83,11 @@ public class AllCombinationAntecedentFactory implements AntecedentFactory {
 	}
 
 	public static class AllCombinationAntecedentFactoryBuilder {
-		private Knowledge knowledge;
 
 		AllCombinationAntecedentFactoryBuilder() {}
 
-		public AllCombinationAntecedentFactory.AllCombinationAntecedentFactoryBuilder knowledge(Knowledge knowledge) {
-			this.knowledge = knowledge;
-			return this;
-		}
-
-		/**
-		 * @param knowledge : Knowledge
-		 */
 		public AllCombinationAntecedentFactory build() {
-			return new AllCombinationAntecedentFactory(knowledge);
+			return new AllCombinationAntecedentFactory();
 		}
 	}
 

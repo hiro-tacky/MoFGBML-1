@@ -15,7 +15,7 @@ public class RejectedRule extends Rule {
 	public static RejectedRule getInstance() {
 		if(instance == null) {
 			int[] nullIndex = new int[] {};
-			Antecedent nullAntecedent = new Antecedent(null, nullIndex);
+			Antecedent nullAntecedent = new Antecedent(nullIndex);
 			RuleWeight nullWeight = new RuleWeight();
 			Consequent consequent = new Consequent(RejectedClassLabel.getInstance(), nullWeight);
 			instance = new RejectedRule(nullAntecedent, consequent);

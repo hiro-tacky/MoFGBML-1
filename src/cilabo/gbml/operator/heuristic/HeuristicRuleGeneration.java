@@ -85,7 +85,6 @@ public class HeuristicRuleGeneration implements Operator<List<Pattern>, List<Ant
 		}
 
 		return Antecedent.builder()
-							.knowledge(knowledge)
 							.antecedentIndex(antecedentIndex)
 							.build();
 	}

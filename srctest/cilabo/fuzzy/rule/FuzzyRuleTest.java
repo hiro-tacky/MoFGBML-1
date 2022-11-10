@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import cilabo.data.ClassLabel;
-import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3_4_5;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
@@ -26,7 +25,6 @@ public class FuzzyRuleTest {
 								.create();
 
 		Antecedent antecedent = Antecedent.builder()
-								.knowledge(Knowledge.getInstace())
 								.antecedentIndex(antecedentIndex)
 								.build();
 

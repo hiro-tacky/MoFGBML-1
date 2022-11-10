@@ -12,7 +12,6 @@ import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import cilabo.data.DataSet;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
@@ -60,7 +59,6 @@ public class MOP1<S extends Solution<?>> extends AbstractPitssburghGBML_Problem<
 				.build()
 				.create();
 		AntecedentFactory antecedentFactory = HeuristicRuleGenerationMethod.builder()
-										.knowledge(Knowledge.getInstace())
 										.train(train)
 										.samplingIndex(new Integer[] {})
 										.build();

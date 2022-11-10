@@ -7,7 +7,6 @@ import java.io.File;
 import org.junit.Test;
 
 import cilabo.data.DataSet;
-import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
@@ -32,7 +31,6 @@ public class HeuristicRuleGenerationMethodTest {
 
 		Integer[] samplingIndex = new Integer[] {0, 1};
 		HeuristicRuleGenerationMethod factory = HeuristicRuleGenerationMethod.builder()
-												.knowledge(Knowledge.getInstace())
 												.train(train)
 												.samplingIndex(samplingIndex)
 												.build();

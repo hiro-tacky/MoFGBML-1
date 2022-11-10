@@ -59,7 +59,6 @@ public class LoadClassifierString implements ClassifierFactory {
 			antecedentIndex[i] = Integer.parseInt(array[i]);
 		}
 		return Antecedent.builder()
-						.knowledge(knowledge)
 						.antecedentIndex(antecedentIndex)
 						.build();
 	}
