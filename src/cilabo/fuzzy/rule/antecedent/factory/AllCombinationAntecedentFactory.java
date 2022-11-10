@@ -8,7 +8,7 @@ import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.antecedent.AntecedentFactory;
 
-/** KB上の全てのファジィ集合の組み合わせを持つ前件部を生成
+/** KB上の全てのファジィ集合の組み合わせを持つ前件部を生成(product)
  * @author hirot
  *
  */
@@ -59,9 +59,6 @@ public class AllCombinationAntecedentFactory implements AntecedentFactory {
 
 	}
 
-	/**
-	 *
-	 */
 	@Override
 	public Antecedent create() {
 		if(head >= antecedents.length) return null;
@@ -78,10 +75,17 @@ public class AllCombinationAntecedentFactory implements AntecedentFactory {
 		return this.antecedents.length;
 	}
 
+	/**creatorを生成
+	 * @return
+	 */
 	public static AllCombinationAntecedentFactory.AllCombinationAntecedentFactoryBuilder builder() {
 		return new AllCombinationAntecedentFactoryBuilder();
 	}
 
+	/**creator
+	 * @author hirot
+	 *
+	 */
 	public static class AllCombinationAntecedentFactoryBuilder {
 
 		AllCombinationAntecedentFactoryBuilder() {}

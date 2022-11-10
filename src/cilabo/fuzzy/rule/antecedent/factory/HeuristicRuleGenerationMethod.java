@@ -10,13 +10,16 @@ import cilabo.fuzzy.rule.antecedent.AntecedentFactory;
 import cilabo.main.Consts;
 import cilabo.utility.Random;
 
+/**ヒューリスティックに基づいた前件部生成
+ * @author hirot
+ *
+ */
 public class HeuristicRuleGenerationMethod implements AntecedentFactory {
-	// ************************************************************
-	// Fields
 
 	/**  */
 	DataSet train;
-
+	/** Internal parameter */
+	int[] antecedents;
 	/** */
 	Integer[] samplingIndex;
 
@@ -30,19 +33,9 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 		this.samplingIndex = samplingIndex;
 	}
 
-	// ************************************************************
-	// Methods
-
-	/**
-	 *
-	 */
-	@Override
-	public Antecedent create() {
-		if(head >= samplingIndex.length) return null;
-
+	private int[] selectAntecedentPart(int head) {
 		int dimension = train.getNdim();
 		Pattern pattern = train.getPattern(samplingIndex[head]);
-		head++;
 		double[] vector = pattern.getInputVector().getVector();
 
 		double dcRate;
@@ -85,8 +78,17 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 					break;
 				}
 			}
-
 		}
+		return antecedentIndex;
+	}
+
+	@Override
+	public Antecedent create() {
+		if(head >= samplingIndex.length) return null;
+
+
+		int[] antecedentIndex = selectAntecedentPart(head);
+		head++;
 
 		return Antecedent.builder()
 				.antecedentIndex(antecedentIndex)
@@ -121,7 +123,6 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 
 		/**
 		 * @param seed : int
-		 * @param knowledge : Knowledge
 		 * @param train : DataSet
 		 * @param samplingIndex : Integer[]
 		 */
