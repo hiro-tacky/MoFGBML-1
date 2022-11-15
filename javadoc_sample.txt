@@ -1,0 +1,7 @@
+ 空のインスタンスを生成します <br> Constructs an empty instance of class
+ 入力された ＊＊＊ を持つインスタンスを生成する
+ このインスタンスのディープコピーを取得する
+ コンストラクタ <br> Constructs an instance of class
+
+ id指定で要素を取得<br>Returns the element at the specified position in this list.
+// ** 学習用データセットを追加*/

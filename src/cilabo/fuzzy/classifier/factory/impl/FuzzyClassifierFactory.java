@@ -1,8 +1,8 @@
-package cilabo.fuzzy.classifier.factory;
+package cilabo.fuzzy.classifier.factory.impl;
 
 import cilabo.data.DataSet;
-import cilabo.fuzzy.classifier.ClassifierFactory;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.factory.ClassifierFactory;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.classifier.operator.postProcessing.PostProcessing;
 import cilabo.fuzzy.classifier.operator.preProcessing.PreProcessing;

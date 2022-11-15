@@ -10,9 +10,9 @@ import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_2_3_4_5;
@@ -63,7 +63,7 @@ public class ProblemMichiganFGBML<S extends Solution<?>> extends AbstractMichiga
 	    List<Integer> upperLimit = new ArrayList<>(getNumberOfVariables());
 	    for (int i = 0; i < getNumberOfVariables(); i++) {
 	      lowerLimit.add(0);
-	      upperLimit.add(Knowledge.getInstace().getFuzzySetNum(i));
+	      upperLimit.add(Knowledge.getInstance().getFuzzySetNum(i));
 	    }
 	    setVariableBounds(lowerLimit, upperLimit);
 	}

@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
+import cilabo.data.TrainTestDatasetManager;
 import cilabo.utility.Random;
 
 public class TrainTestDatasetManagerTest {
 
 	private static String trainFile;
 	private static String testFile;
-	private static TrainTestDatasetManager TDM;
 	static ArrayList<DataSet> trains;
 	static ArrayList<DataSet> tests;
 
@@ -25,10 +25,9 @@ public class TrainTestDatasetManagerTest {
     	Random.getInstance().initRandom(2022);
     	trainFile = "dataset\\cilabo\\test_Dtra.dat";
     	testFile = "dataset\\cilabo\\test_Dtst.dat";
-    	TDM = new TrainTestDatasetManager();
-    	TDM.loadTrainTestFiles(trainFile, testFile);
-    	trains = TDM.getTrains();
-    	tests = TDM.getTests();
+    	TrainTestDatasetManager.getInstance().loadTrainTestFiles(trainFile, testFile);
+    	trains = TrainTestDatasetManager.getInstance().getTrains();
+    	tests = TrainTestDatasetManager.getInstance().getTests();
     }
 
 	@Test

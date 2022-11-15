@@ -42,8 +42,8 @@ public class HomoTriangleKnowledgeFactoryTest {
 
 		for(int i=0; i<fuzzySets.length; i++) {
 			for(int j=0; j<fuzzySets[i].length; j++) {
-				testFuzzyTerm(fuzzySets[i][j], Knowledge.getInstace().getFuzzySet(i, j));
-				float buf = Knowledge.getInstace().getFuzzySet(i, j).getMembershipValue((float) 0.5);
+				testFuzzyTerm(fuzzySets[i][j], Knowledge.getInstance().getFuzzySet(i, j));
+				float buf = Knowledge.getInstance().getFuzzySet(i, j).getMembershipValue((float) 0.5);
 				assertEquals(actual_MembershipValue[j], buf, 1e-5);
 			}
 		}

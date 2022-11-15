@@ -6,11 +6,10 @@ import java.io.File;
 
 import org.junit.Test;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.data.InputVector;
 import cilabo.data.Pattern;
-import cilabo.utility.Input;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 
 public class InputTest {
 
@@ -52,8 +51,7 @@ public class InputTest {
 										0.0416666666666667};
 		InputVector inputVector = new InputVector(vector);
 		Integer C = 0;
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(C);
+		SingleClassLabel classLabel = new SingleClassLabel(C);
 		Pattern actualPattern = new Pattern(id, inputVector, classLabel);
 
 		DataSet dataset = new DataSet();
@@ -85,8 +83,7 @@ public class InputTest {
 										-1.0, -2.0, -1.0, -1.0};
 		InputVector inputVector = new InputVector(vector);
 		Integer[] cVec = new Integer[] {1, 0, 0, 1, 0, 1, 0};
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabels(cVec);
+		SingleClassLabel classLabel = new SingleClassLabel(cVec);
 		Pattern actualPattern = new Pattern(id, inputVector, classLabel);
 
 		DataSet dataset = new DataSet();

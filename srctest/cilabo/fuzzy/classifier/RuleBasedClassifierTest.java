@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
 import cilabo.fuzzy.StaticFuzzyClassifierForTest;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 import cilabo.utility.Input;
 import cilabo.utility.Random;
 
@@ -51,8 +52,8 @@ class RuleBasedClassifierTest extends RuleBasedClassifier {
 	@Test
 	void testGetRuleNum() {
 		int ruleNum = 1;
-		for(int i=0; i<Knowledge.getInstace().getDimension(); i++) {
-			ruleNum *= Knowledge.getInstace().getFuzzySetNum(i);
+		for(int i=0; i<Knowledge.getInstance().getDimension(); i++) {
+			ruleNum *= Knowledge.getInstance().getFuzzySetNum(i);
 		}
 		assertEquals(ruleNum, classifier.getRuleNum());
 	}
@@ -60,10 +61,10 @@ class RuleBasedClassifierTest extends RuleBasedClassifier {
 	@Test
 	void testGetRuleLength() {
 		int ruleLength = 1;
-		for(int i=0; i<Knowledge.getInstace().getDimension(); i++) {
-			ruleLength *= Knowledge.getInstace().getFuzzySetNum(i);
+		for(int i=0; i<Knowledge.getInstance().getDimension(); i++) {
+			ruleLength *= Knowledge.getInstance().getFuzzySetNum(i);
 		}
-		ruleLength *= Knowledge.getInstace().getDimension();
+		ruleLength *= Knowledge.getInstance().getDimension();
 		assertEquals(ruleLength, classifier.getRuleLength());
 	}
 
@@ -72,13 +73,11 @@ class RuleBasedClassifierTest extends RuleBasedClassifier {
 		int[] antecedent_expected = {0, 0};
 		Antecedent antecedent = new Antecedent(antecedent_expected);
 
-		ClassLabel classLabel = new ClassLabel();
 		Integer classLabel_expected = -1;
-		classLabel.addClassLabel(classLabel_expected);
+		SingleClassLabel classLabel = new SingleClassLabel(classLabel_expected);
 
-		RuleWeight ruleWeight = new RuleWeight();
 		double ruleWeight_expected = 0.5d;
-		ruleWeight.addRuleWeight(ruleWeight_expected);
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(ruleWeight_expected);
 		Consequent consequent = new Consequent(classLabel, ruleWeight);
 
 		Rule rule = new Rule(antecedent, consequent);

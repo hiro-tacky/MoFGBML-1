@@ -20,7 +20,7 @@ import org.uma.jmetal.util.pseudorandom.RandomGenerator;
 
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;

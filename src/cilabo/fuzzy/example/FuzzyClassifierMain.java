@@ -4,11 +4,11 @@ import java.io.File;
 
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
-import cilabo.fuzzy.classifier.ClassifierFactory;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
-import cilabo.fuzzy.classifier.factory.FuzzyClassifierFactory;
+import cilabo.fuzzy.classifier.factory.ClassifierFactory;
+import cilabo.fuzzy.classifier.factory.impl.FuzzyClassifierFactory;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.classifier.operator.postProcessing.PostProcessing;
 import cilabo.fuzzy.classifier.operator.postProcessing.factory.SimplePostProcessing;
 import cilabo.fuzzy.classifier.operator.preProcessing.PreProcessing;

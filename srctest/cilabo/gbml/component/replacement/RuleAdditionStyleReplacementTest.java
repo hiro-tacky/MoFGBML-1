@@ -15,16 +15,16 @@ import org.junit.jupiter.api.Test;
 import org.uma.jmetal.component.replacement.Replacement;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.antecedent.factory.AllCombinationAntecedentFactory;
 import cilabo.fuzzy.rule.consequent.Consequent;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 import cilabo.gbml.problem.impl.pittsburgh.MOP1;
 import cilabo.gbml.solution.MichiganSolution;
 import cilabo.gbml.solution.PittsburghSolution;
@@ -42,7 +42,6 @@ class RuleAdditionStyleReplacementTest {
 	static void setUpBeforeClass() throws Exception {
 		Random.getInstance().initRandom(2022);
 
-		Random.getInstance().initRandom(2022);
 		String sep = File.separator;
 		String dataName = "dataset" + sep + "cilabo" + sep + "test2_Dtra.dat";
 		train = new DataSet();
@@ -62,8 +61,7 @@ class RuleAdditionStyleReplacementTest {
 
 		AllCombinationAntecedentFactory antecedentFactory = AllCombinationAntecedentFactory.builder().build();
 
-		RuleWeight ruleWeight = new RuleWeight();
-		ruleWeight.addRuleWeight(0.7);
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(0.7);
 
 		List<Integer> lowerBoundsMichigan = new ArrayList<>();
 		List<Integer> upperBoundsMichigan = new ArrayList<>();
@@ -82,9 +80,7 @@ class RuleAdditionStyleReplacementTest {
 		for(int i=0; i<antecedentFactory.getRuleNum(); i++) {
 			Antecedent antecedent = antecedentFactory.create();
 
-			ClassLabel classLabelParent= new ClassLabel(), classLabelOffspring= new ClassLabel();
-			classLabelParent.addClassLabel(i);
-			classLabelOffspring.addClassLabel(1);
+			SingleClassLabel classLabelParent= new SingleClassLabel(i), classLabelOffspring= new SingleClassLabel(0);
 
 			Consequent consequentParent = Consequent.builder()
 					.consequentClass(classLabelParent)
@@ -120,11 +116,11 @@ class RuleAdditionStyleReplacementTest {
 
 		solutionParent = new PittsburghSolution(pittsburghBbounds,
 						 							2,
-						 							michiganPopulationParent,
+						 							michiganPopulationParent.subList(8, ruleNum),
 						 							classification);
 		solutionOffspring = new PittsburghSolution(pittsburghBbounds,
 													2,
-													michiganPopulationOffspring,
+													michiganPopulationOffspring.subList(8, ruleNum),
 													classification);
 }
 
@@ -136,9 +132,16 @@ class RuleAdditionStyleReplacementTest {
 		problem.evaluate(solutionOffspring);
 
 		Consts.MAX_RULE_NUM = ruleNum;
+		int ruleNumRemain = ruleNum - solutionOffspring.getMichiganPopulation().size();
 		List<IntegerSolution> solutionReplaced = replacement.replace(solutionParent.getMichiganPopulation(), solutionOffspring.getMichiganPopulation());
-		assertEquals(solutionParent.getMichiganPopulation().get(0), solutionReplaced.get(0));
-		assertEquals(solutionOffspring.getMichiganPopulation().get(8), solutionReplaced.get(ruleNum-1));
+		for(int i=0; i< solutionReplaced.size(); i++) {
+			MichiganSolution solution_i = (MichiganSolution) solutionReplaced.get(i);
+			if(i>=ruleNumRemain) {
+				assertEquals(-1, (int)solution_i.getRule().getConsequent().getClassLabel().getClassLabel());
+			}else {
+				assertNotEquals(-1, (int)solution_i.getRule().getConsequent().getClassLabel().getClassLabel());
+			}
+		}
 	}
 
 }

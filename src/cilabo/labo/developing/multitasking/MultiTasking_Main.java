@@ -8,7 +8,7 @@ import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import cilabo.data.DataSet;
-import cilabo.data.impl.TrainTestDatasetManager;
+import cilabo.data.TrainTestDatasetManager;
 import cilabo.main.Consts;
 import cilabo.utility.Output;
 import cilabo.utility.Parallel;
@@ -65,12 +65,11 @@ public class MultiTasking_Main {
 		JMetalRandom.getInstance().setSeed(Consts.RAND_SEED);
 
 		/* Load Dataset ======================== */
-		TrainTestDatasetManager datasetManager = new TrainTestDatasetManager();
-		datasetManager.loadTrainTestFiles(CommandLineArgs.trainFile, CommandLineArgs.testFile);
+		TrainTestDatasetManager.getInstance().loadTrainTestFiles(CommandLineArgs.trainFile, CommandLineArgs.testFile);
 
 		/* Run MoFGBML algorithm =============== */
-		DataSet train = datasetManager.getTrains().get(0);
-		DataSet test = datasetManager.getTests().get(0);
+		DataSet train = TrainTestDatasetManager.getInstance().getTrains().get(0);
+		DataSet test = TrainTestDatasetManager.getInstance().getTests().get(0);
 		MultiTaskingMoFGBML(train, test);
 		/* ===================================== */
 

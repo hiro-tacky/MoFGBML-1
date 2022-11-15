@@ -1,6 +1,6 @@
 package cilabo.metric;
 
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 
 public class RuleLength implements Metric {
 	// ************************************************************

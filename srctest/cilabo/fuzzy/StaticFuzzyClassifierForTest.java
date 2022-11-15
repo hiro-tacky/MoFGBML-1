@@ -1,13 +1,12 @@
 package cilabo.fuzzy;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
-import cilabo.fuzzy.classifier.ClassifierFactory;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
-import cilabo.fuzzy.classifier.factory.FuzzyClassifierFactory;
+import cilabo.fuzzy.classifier.factory.ClassifierFactory;
+import cilabo.fuzzy.classifier.factory.impl.FuzzyClassifierFactory;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.classifier.operator.classification.factory.CFmeanClassification;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.CFmeanClassification;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.classifier.operator.postProcessing.PostProcessing;
 import cilabo.fuzzy.classifier.operator.postProcessing.factory.NopPostProcessing;
 import cilabo.fuzzy.classifier.operator.postProcessing.factory.SimplePostProcessing;
@@ -23,9 +22,10 @@ import cilabo.fuzzy.rule.antecedent.AntecedentFactory;
 import cilabo.fuzzy.rule.antecedent.factory.AllCombinationAntecedentFactory;
 import cilabo.fuzzy.rule.consequent.Consequent;
 import cilabo.fuzzy.rule.consequent.ConsequentFactory;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 import cilabo.fuzzy.rule.consequent.factory.MoFGBML_Learning;
 import cilabo.fuzzy.rule.consequent.factory.MultiLabel_MoFGBML_Learning;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 
 public class StaticFuzzyClassifierForTest {
 
@@ -145,17 +145,15 @@ public class StaticFuzzyClassifierForTest {
 	 * @param classifier 識別器
 	 */
 	public static void makeRules(RuleBasedClassifier classifier) {
-		for(int i=1; i<Knowledge.getInstace().getFuzzySetNum(0); i++) {
-			for(int j=1; j<Knowledge.getInstace().getFuzzySetNum(0); j++) {
+		for(int i=1; i<Knowledge.getInstance().getFuzzySetNum(0); i++) {
+			for(int j=1; j<Knowledge.getInstance().getFuzzySetNum(0); j++) {
 				int[] buf = {i, j};
 				Antecedent antecedent = new Antecedent(buf);
 
-				ClassLabel classLabel = new ClassLabel();
 				Integer[] buf2= {i, j};
-				classLabel.addClassLabels(buf2);
+				SingleClassLabel classLabel = new SingleClassLabel(buf2);
 
-				RuleWeight ruleWeight = new RuleWeight();
-				ruleWeight.addRuleWeight(0.5d);
+				SingleRuleWeight ruleWeight = new SingleRuleWeight(0.5);
 				Consequent consequent = new Consequent(classLabel, ruleWeight);
 
 				Rule rule = new Rule(antecedent, consequent);

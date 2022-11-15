@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 import cilabo.utility.Random;
 
 public class PatternTest {
 
 	static InputVector inputVector;
-	static ClassLabel classLabel;
+	static SingleClassLabel classLabel;
 	static Pattern pattern;
 
 	static double[] inputVectorExpected;
@@ -22,9 +23,8 @@ public class PatternTest {
     	inputVectorExpected = new double[] {0d, 1/3d, 2/3d, 1d};
 		inputVector = new InputVector(inputVectorExpected);
 
-		classLabel = new ClassLabel();
 		classLabelExpected = new Integer[] {1, 0, 1};
-		classLabel.addClassLabels(classLabelExpected);
+		classLabel = new SingleClassLabel(classLabelExpected);
 
 
 		pattern = Pattern.builder()
@@ -46,9 +46,8 @@ public class PatternTest {
 
 	@Test
 	public void testGetTrueClassSingel() {
-		classLabel = new ClassLabel();
 		Integer expected = 2;
-		classLabel.addClassLabel(expected);
+		classLabel = new SingleClassLabel(expected);
 
 		pattern = Pattern.builder()
 				.id(0)

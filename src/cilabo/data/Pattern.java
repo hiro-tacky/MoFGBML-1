@@ -1,5 +1,6 @@
 package cilabo.data;
 
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 
 public class Pattern{
 	// ************************************************************
@@ -12,14 +13,14 @@ public class Pattern{
 	final private InputVector inputVector;
 
 	/** 結論部クラス*/
-	final private ClassLabel trueClass;
+	final private SingleClassLabel trueClass;
 
 	/** コンストラクタ <br> Constructs an instance of class
 	 * @param id パターンのID
 	 * @param inputVector 属性値クラス
 	 * @param trueClass 結論部クラス
 	 */
-	public Pattern(int id, InputVector inputVector, ClassLabel trueClass) {
+	public Pattern(int id, InputVector inputVector, SingleClassLabel trueClass) {
 		this.id = id;
 		this.inputVector = inputVector;
 		this.trueClass = trueClass;
@@ -50,7 +51,7 @@ public class Pattern{
 	/** 結論部クラスを取得
 	 * @return 結論部クラス
 	 */
-	public ClassLabel getTrueClass() {
+	public SingleClassLabel getTrueClass() {
 		return this.trueClass;
 	}
 
@@ -82,7 +83,7 @@ public class Pattern{
 	public static class PatternBuilder {
 		private int id = -1;
 		private InputVector inputVector;
-		private ClassLabel trueClass;
+		private SingleClassLabel trueClass;
 
 		/**  空のインスタンスを生成します <br> Constructs an empty instance of class*/
 		PatternBuilder() {}
@@ -105,7 +106,7 @@ public class Pattern{
 		 * @param trueClass 結論部クラス
 		 * @return 記入済みpatternインスタンスのFactory Method
 		 */
-		public Pattern.PatternBuilder trueClass(ClassLabel trueClass) {
+		public Pattern.PatternBuilder trueClass(SingleClassLabel trueClass) {
 			this.trueClass = trueClass;
 			return this;
 		}

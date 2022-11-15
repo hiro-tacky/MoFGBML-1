@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 import cilabo.utility.Random;
 
 public class ClassLabelTest {
@@ -18,8 +19,7 @@ public class ClassLabelTest {
 	public void testSingleLabel() {
 		Integer expected = 7;
 
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(expected);
+		SingleClassLabel classLabel = new SingleClassLabel(expected);
 
 		assertEquals(expected, classLabel.getClassLabel());
 	}
@@ -28,10 +28,7 @@ public class ClassLabelTest {
 	public void testMultiLabel() {
 		Integer[] expected = new Integer[] {1, 0, 1};
 
-		ClassLabel classLabel = new ClassLabel();
-		for(int i = 0; i < expected.length; i++) {
-			classLabel.addClassLabel(expected[i]);
-		}
+		SingleClassLabel classLabel = new SingleClassLabel(expected);
 
 		assertArrayEquals(expected, classLabel.getClassVector());
 
@@ -41,8 +38,7 @@ public class ClassLabelTest {
 	public void testMultiLabel2() {
 		Integer[] expected = new Integer[] {1, 0, 1};
 
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabels(expected);
+		SingleClassLabel classLabel = new SingleClassLabel(expected);
 
 		assertArrayEquals(expected, classLabel.getClassVector());
 	}

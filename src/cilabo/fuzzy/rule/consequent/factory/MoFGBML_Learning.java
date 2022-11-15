@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
 import cilabo.fuzzy.rule.consequent.ConsequentFactory;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 import cilabo.utility.Parallel;
 
 /**後件部
@@ -33,8 +33,8 @@ public class MoFGBML_Learning implements ConsequentFactory {
 	@Override
 	public Consequent learning(Antecedent antecedent) {
 		double[] confidence = this.calcConfidence(antecedent);
-		ClassLabel classLabel = this.calcClassLabel(confidence, 0.5);
-		RuleWeight ruleWeight = this.calcRuleWeight(classLabel, confidence);
+		SingleClassLabel classLabel = this.calcClassLabel(confidence, 0.5);
+		SingleRuleWeight ruleWeight = this.calcRuleWeight(classLabel, confidence);
 
 		Consequent consequent = Consequent.builder()
 								.consequentClass(classLabel)
@@ -100,7 +100,7 @@ public class MoFGBML_Learning implements ConsequentFactory {
 	 * @param confidence
 	 * @return
 	 */
-	public ClassLabel calcClassLabel(double[] confidence, double limit) {
+	public SingleClassLabel calcClassLabel(double[] confidence, double limit) {
 		double max = Double.MIN_VALUE;
 		int consequentClass = -1;
 
@@ -116,8 +116,7 @@ public class MoFGBML_Learning implements ConsequentFactory {
 
 		if(max <= limit) { consequentClass = -1; }
 
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(consequentClass);
+		SingleClassLabel classLabel = new SingleClassLabel(consequentClass);
 
 		return classLabel;
 	}
@@ -128,19 +127,17 @@ public class MoFGBML_Learning implements ConsequentFactory {
 	 * @param confidence クラス別の信頼度
 	 * @return
 	 */
-	public RuleWeight calcRuleWeight(ClassLabel consequentClass, double[] confidence) {
+	public SingleRuleWeight calcRuleWeight(SingleClassLabel consequentClass, double[] confidence) {
 		// 生成不可能ルール判定
 		if(consequentClass.getClassLabel() == -1) {
-			RuleWeight zeroWeight = new RuleWeight();
-			zeroWeight.addRuleWeight(0.0);
+			SingleRuleWeight zeroWeight = new SingleRuleWeight(0.0);
 			return zeroWeight;
 		}
 
 		int C = consequentClass.getClassLabel();
 		double sumConfidence = Arrays.stream(confidence).sum();
 		double CF = confidence[C] - (sumConfidence - confidence[C]);
-		RuleWeight ruleWeight = new RuleWeight();
-		ruleWeight.addRuleWeight(CF);
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(CF);
 		return ruleWeight;
 	}
 

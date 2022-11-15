@@ -2,7 +2,7 @@ package cilabo.metric.multilabel;
 
 import cilabo.data.DataSet;
 import cilabo.data.InputVector;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.metric.Metric;
 
 public class Precision implements Metric {

@@ -6,7 +6,7 @@ import java.util.Map;
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
 import cilabo.fuzzy.classifier.Classifier;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.rule.Rule;
 
 public class RemoveNotBeWinnerProcessing extends SimplePostProcessing {

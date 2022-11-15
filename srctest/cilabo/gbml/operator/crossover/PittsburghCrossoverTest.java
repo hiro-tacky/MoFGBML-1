@@ -10,7 +10,7 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import cilabo.data.DataSet;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.gbml.problem.impl.pittsburgh.MOP1;
 import cilabo.utility.Input;
 

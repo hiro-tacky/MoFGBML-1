@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cilabo.data.ClassLabel;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 
 public class ConsequentTest {
 	@Test
@@ -13,10 +14,8 @@ public class ConsequentTest {
 		Double w = 0.5;
 		String actual = "class:[7] weight:[0.5]";
 
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(C);
-		RuleWeight ruleWeight = new RuleWeight();
-		ruleWeight.addRuleWeight(w);
+		SingleClassLabel classLabel = new SingleClassLabel(C);
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(w);
 
 		Consequent consequent = Consequent.builder()
 									.consequentClass(classLabel)
@@ -34,10 +33,8 @@ public class ConsequentTest {
 		Double[] wVec = new Double[] {0.5, 0.8, 0.9};
 		String actual = "class:[1, 0, 1] weight:[0.5, 0.8, 0.9]";
 
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabels(cVec);
-		RuleWeight ruleWeight = new RuleWeight();
-		ruleWeight.addRuleWeightVector(wVec);
+		SingleClassLabel classLabel = new SingleClassLabel(cVec);
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(wVec);
 
 		Consequent consequent = Consequent.builder()
 									.consequentClass(classLabel)

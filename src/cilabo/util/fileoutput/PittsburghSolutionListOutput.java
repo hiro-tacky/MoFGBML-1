@@ -10,7 +10,7 @@ import org.uma.jmetal.util.fileoutput.FileOutputContext;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.w3c.dom.Element;
 
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.gbml.solution.PittsburghSolution;
 import cilabo.metric.ErrorRate;
 import cilabo.metric.Metric;

@@ -18,7 +18,7 @@ import org.uma.jmetal.util.observer.impl.EvaluationObserver;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import cilabo.data.DataSet;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.postProcessing.PostProcessing;
 import cilabo.fuzzy.classifier.operator.postProcessing.factory.RemoveNotBeWinnerProcessing;
 import cilabo.fuzzy.knowledge.Knowledge;
@@ -102,7 +102,7 @@ public class ProgrammingExercise_MichiganFGBML {
 		// Mutation
 		double mutationProbability = 1.0 / (double)train.getNdim();
 		MutationOperator<IntegerSolution> mutation = new MichiganMutation(mutationProbability,
-																	  Knowledge.getInstace(),
+																	  Knowledge.getInstance(),
 																	  train);
 		// Termination
 		int generation = 1000;
@@ -112,7 +112,7 @@ public class ProgrammingExercise_MichiganFGBML {
 		// Variation
 		Variation<IntegerSolution> variation = new MichiganSolutionVariation<>(
 													offspringPopulationSize, crossover, mutation,
-													Knowledge.getInstace(),
+													Knowledge.getInstance(),
 													problem.getConsequentFactory());
 		// Replacement
 		Replacement<IntegerSolution> replacement = new SingleObjectiveMaximizeReplacementWithoutOffspringFitness<>();

@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import cilabo.data.DataSet;
 import cilabo.fuzzy.StaticFuzzyClassifierForTest;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.factory.impl.LoadClassifierString;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
@@ -41,7 +42,7 @@ public class LoadClassifierStringTest {
 
 		RuleBasedClassifier newClassifier = LoadClassifierString.builder()
 											.classifierString(classifier.toString())
-											.knowledge(Knowledge.getInstace())
+											.knowledge(Knowledge.getInstance())
 											.build()
 											.create();
 

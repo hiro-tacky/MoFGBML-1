@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cilabo.data.ClassLabel;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3_4_5;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 
 public class FuzzyRuleTest {
 	@Test
@@ -28,11 +28,9 @@ public class FuzzyRuleTest {
 								.antecedentIndex(antecedentIndex)
 								.build();
 
-		ClassLabel classLabel = new ClassLabel();
-		classLabel.addClassLabel(7);
+		SingleClassLabel classLabel = new SingleClassLabel(7);
 
-		RuleWeight ruleWeight = new RuleWeight();
-		ruleWeight.addRuleWeight(0.5);
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(0.5);
 
 		Consequent consequent = Consequent.builder()
 								.consequentClass(classLabel)

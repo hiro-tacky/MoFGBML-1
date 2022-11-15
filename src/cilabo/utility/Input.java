@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.data.InputVector;
 import cilabo.data.Pattern;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 
 public class Input {
 
@@ -43,8 +43,7 @@ public class Input {
 			C = (int)line[data.getNdim()];
 
 			InputVector inputVector = new InputVector(vector);
-			ClassLabel classLabel = new ClassLabel();
-			classLabel.addClassLabel(C);
+			SingleClassLabel classLabel = new SingleClassLabel(C);
 
 			Pattern pattern = Pattern.builder()
 								.id(id)
@@ -85,8 +84,7 @@ public class Input {
 			}
 
 			InputVector inputVector = new InputVector(vector);
-			ClassLabel classLabel = new ClassLabel();
-			classLabel.addClassLabels(cVec);
+			SingleClassLabel classLabel = new SingleClassLabel(cVec);
 
 			Pattern pattern = Pattern.builder()
 								.id(id)

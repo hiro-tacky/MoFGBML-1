@@ -54,7 +54,7 @@ class RandomInitializationTest {
 			Antecedent antecedent = factory.create();
         	assertArrayEquals(actual[i], antecedent.getAntecedentIndex());
 			for(int j=0; j<dimension; j++) {
-				assertEquals(Knowledge.getInstace().getFuzzySet(j, actual[i][j]), antecedent.getAntecedentFuzzySetAt(j));
+				assertEquals(Knowledge.getInstance().getFuzzySet(j, actual[i][j]), antecedent.getAntecedentFuzzySetAt(j));
 			}
 		}
 	}

@@ -7,7 +7,7 @@ import cilabo.fuzzy.rule.InterfaceRule;
 public interface Classification {
 
 	/**
-	 * パターンに対する識別を行う
+	 * 未知パターンに対する識別方式
 	 *
 	 * @param classifier 識別器
 	 * @param vector 入力パターン

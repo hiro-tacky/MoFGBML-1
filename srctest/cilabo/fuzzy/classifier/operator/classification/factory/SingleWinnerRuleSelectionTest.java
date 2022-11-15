@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
 import cilabo.fuzzy.StaticFuzzyClassifierForTest;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.utility.Input;
 import cilabo.utility.Random;

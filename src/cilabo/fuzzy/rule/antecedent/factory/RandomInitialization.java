@@ -28,7 +28,7 @@ public class RandomInitialization implements AntecedentFactory {
 
 	@Override
 	public Antecedent create() {
-		int dimension = Knowledge.getInstace().getDimension();
+		int dimension = Knowledge.getInstance().getDimension();
 		double dcRate;
 		if(Consts.IS_PROBABILITY_DONT_CARE) {
 			// Constant Value
@@ -56,7 +56,7 @@ public class RandomInitialization implements AntecedentFactory {
 				}
 				else {
 					// Numerical
-					antecedentIndex[n] = uniqueRnd.nextInt(Knowledge.getInstace().getFuzzySetNum(n));
+					antecedentIndex[n] = uniqueRnd.nextInt(Knowledge.getInstance().getFuzzySetNum(n));
 				}
 			}
 		}

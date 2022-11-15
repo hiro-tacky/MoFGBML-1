@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import cilabo.fuzzy.classifier.Classifier;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.postProcessing.PostProcessing;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.fuzzy.rule.antecedent.Antecedent;

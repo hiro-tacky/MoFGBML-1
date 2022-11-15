@@ -1,10 +1,11 @@
-package cilabo.fuzzy.classifier;
+package cilabo.fuzzy.classifier.impl;
 
 import java.util.ArrayList;
 
 import org.w3c.dom.Element;
 
 import cilabo.data.InputVector;
+import cilabo.fuzzy.classifier.Classifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.rule.Rule;
 import xml.XML_manager;
@@ -20,7 +21,7 @@ public class RuleBasedClassifier implements Classifier {
 
 	/** 識別方式
 	 * @see cilabo.fuzzy.classifier.operator.classification
-	 *  */
+	 */
 	Classification classification;
 
 	/** 空のインスタンスを生成します <br> Constructs an empty instance of class */
@@ -35,7 +36,7 @@ public class RuleBasedClassifier implements Classifier {
 		classification = classifier.getClassification();
 	}
 
-	/* 識別を行う
+	/** 識別を行う
 	 * @see cilabo.fuzzy.classifier.Classifier#classify(cilabo.data.InputVector)
 	 */
 	@Override

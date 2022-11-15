@@ -68,12 +68,12 @@ public class HeuristicRuleGenerationMethod implements AntecedentFactory {
 			}
 
 			// Numerical
-			int fuzzySetNum = Knowledge.getInstace().getFuzzySetNum(n)-1;
+			int fuzzySetNum = Knowledge.getInstance().getFuzzySetNum(n)-1;
 			double[] membershipValueRoulette = new double[fuzzySetNum];
 			double sumMembershipValue = 0;
 			membershipValueRoulette[0] = 0;
 			for(int h = 0; h < fuzzySetNum; h++) {
-				sumMembershipValue += Knowledge.getInstace().getMembershipValue(vector[n], n, h+1);
+				sumMembershipValue += Knowledge.getInstance().getMembershipValue(vector[n], n, h+1);
 				membershipValueRoulette[h] = sumMembershipValue;
 			}
 

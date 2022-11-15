@@ -1,10 +1,9 @@
-package cilabo.data.impl;
+package cilabo.data;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import cilabo.data.DataSet;
 import cilabo.labo.developing.fan2021.CommandLineArgs;
 import cilabo.main.Consts;
 import cilabo.utility.Input;
@@ -13,13 +12,17 @@ import cilabo.utility.Input;
  * 	this class has one training dataset and one test dataset.
  *  */
 public class TrainTestDatasetManager {
+	private static TrainTestDatasetManager instance = new TrainTestDatasetManager();
 	// ** 学習用データセット <br>training dataset*/
 	final ArrayList<DataSet> trains = new ArrayList<>();
 	// ** 評価用データセット <br>test dataset*/
 	final ArrayList<DataSet> tests = new ArrayList<>();
 
+	private TrainTestDatasetManager() {}
+
 	/** 空のインスタンスを生成します <br> Constructs an empty instance of class */
-	public TrainTestDatasetManager() {
+	public static TrainTestDatasetManager getInstance() {
+		return instance;
 	}
 
 

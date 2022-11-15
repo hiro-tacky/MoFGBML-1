@@ -1,9 +1,9 @@
 package cilabo.metric;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.data.InputVector;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 
 public class ErrorRate implements Metric {
 	// ************************************************************
@@ -53,9 +53,9 @@ public class ErrorRate implements Metric {
 		double error = 0;
 		for(int p = 0; p < size; p++) {
 			InputVector vector = dataset.getPattern(p).getInputVector();
-			ClassLabel trueClass = dataset.getPattern(p).getTrueClass();
+			SingleClassLabel trueClass = dataset.getPattern(p).getTrueClass();
 
-			ClassLabel classifiedClass = classifier.classify(vector).getConsequent().getClassLabel();
+			SingleClassLabel classifiedClass = classifier.classify(vector).getConsequent().getClassLabel();
 
 			if( !trueClass.toString().equals( classifiedClass.toString() ) ) {
 				error += 1;

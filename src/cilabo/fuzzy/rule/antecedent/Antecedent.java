@@ -43,7 +43,7 @@ public class Antecedent {
 			}
 			else {
 				// Numerical
-				antecedentFuzzySets[i] = Knowledge.getInstace().getFuzzySet(i, antecedentIndex[i]);
+				antecedentFuzzySets[i] = Knowledge.getInstance().getFuzzySet(i, antecedentIndex[i]);
 			}
 		}
 	}

@@ -1,15 +1,15 @@
-package cilabo.fuzzy.classifier.operator.classification.factory;
+package cilabo.fuzzy.classifier.operator.classification.impl;
 
 import java.util.List;
 
 import cilabo.data.InputVector;
 import cilabo.fuzzy.classifier.Classifier;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.rule.RejectedRule;
 import cilabo.fuzzy.rule.Rule;
 
-public class SingleWinnerRuleSelection implements Classification {
+public final class SingleWinnerRuleSelection implements Classification {
 
 	/**
 	 * 単一勝利ルールに基づいて勝利ルールを出力する．
@@ -46,7 +46,7 @@ public class SingleWinnerRuleSelection implements Classification {
 			else if(value == max) {
 				Rule winnerRule = ruleSet.get(winner);
 				// "membership*CF"が同値 かつ 結論部クラスが異なる
-				if(!rule.getConsequent().getClassLabel().toString().equals(winnerRule.getConsequent().getClassLabel().toString())) {
+				if(!rule.getConsequent().getClassLabel().equals(winnerRule.getConsequent().getClassLabel())) {
 					canClassify = false;
 				}
 			}

@@ -6,19 +6,19 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.fuzzy.StaticFuzzyClassifierForTest;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.classifier.operator.preProcessing.PreProcessing;
 import cilabo.fuzzy.classifier.operator.preProcessing.factory.NopPreProcessing;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 import cilabo.utility.Input;
 
 class RemoveNotBeWinnerProcessingTest {
@@ -47,14 +47,13 @@ class RemoveNotBeWinnerProcessingTest {
 					int[] buf = {i, j};
 					Antecedent antecedent = new Antecedent(buf);
 
-					ClassLabel classLabel = new ClassLabel();
 					Integer[] buf2;
 					if(k) {buf2 = new Integer[]{i, j};}else {buf2 = new Integer[]{-1};}
-					classLabel.addClassLabels(buf2);
+					SingleClassLabel classLabel = new SingleClassLabel(buf2);
 
-					RuleWeight ruleWeight = new RuleWeight();
-					if(k) { ruleWeight.addRuleWeight(0.5d);
-					}else { ruleWeight.addRuleWeight(0d);}
+					double ruleWeightBuf;
+					if(k) { ruleWeightBuf = 0.5; }else { ruleWeightBuf = 0.0; }
+					SingleRuleWeight ruleWeight = new SingleRuleWeight(ruleWeightBuf);
 					Consequent consequent = new Consequent(classLabel, ruleWeight);
 
 					Rule rule = new Rule(antecedent, consequent);

@@ -21,9 +21,9 @@ import org.uma.jmetal.util.observer.impl.EvaluationObserver;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import cilabo.data.DataSet;
-import cilabo.data.impl.TrainTestDatasetManager;
+import cilabo.data.TrainTestDatasetManager;
 import cilabo.fuzzy.classifier.Classifier;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.gbml.algorithm.HybridMoFGBMLwithNSGAII;
 import cilabo.gbml.operator.crossover.HybridGBMLcrossover;
@@ -96,12 +96,11 @@ public class FAN2021_Main {
 		JMetalRandom.getInstance().setSeed(Consts.RAND_SEED);
 
 		/* Load Dataset ======================== */
-		TrainTestDatasetManager datasetManager = new TrainTestDatasetManager();
-		datasetManager.loadTrainTestFiles(CommandLineArgs.trainFile, CommandLineArgs.testFile);
+		TrainTestDatasetManager.getInstance().loadTrainTestFiles(CommandLineArgs.trainFile, CommandLineArgs.testFile);
 
 		/* Run MoFGBML algorithm =============== */
-		DataSet train = datasetManager.getTrains().get(0);
-		DataSet test = datasetManager.getTests().get(0);
+		DataSet train = TrainTestDatasetManager.getInstance().getTrains().get(0);
+		DataSet test = TrainTestDatasetManager.getInstance().getTests().get(0);
 
 
 		/** XML ファイル出力ようインスタンスの生成*/
@@ -140,7 +139,7 @@ public class FAN2021_Main {
 		double crossoverProbability = 1.0;
 		/* Michigan operation */
 		CrossoverOperator<IntegerSolution> michiganX = new MichiganOperation(Consts.MICHIGAN_CROSS_RT,
-																			Knowledge.getInstace(),
+																			Knowledge.getInstance(),
 																			problem.getConsequentFactory());
 		/* Pittsburgh operation */
 		CrossoverOperator<IntegerSolution> pittsburghX = new PittsburghCrossover(Consts.PITTSBURGH_CROSS_RT);
@@ -148,13 +147,13 @@ public class FAN2021_Main {
 		CrossoverOperator<IntegerSolution> crossover = new HybridGBMLcrossover(crossoverProbability, Consts.MICHIGAN_OPE_RT,
 																				michiganX, pittsburghX);
 		/* Mutation: Pittsburgh-style GBML specific mutation operator. */
-		MutationOperator<IntegerSolution> mutation = new PittsburghMutation(Knowledge.getInstace(), train);
+		MutationOperator<IntegerSolution> mutation = new PittsburghMutation(Knowledge.getInstance(), train);
 
 		/* Termination: Number of total evaluations */
 		Termination termination = new TerminationByEvaluations(Consts.terminateEvaluation);
 
 		//knowlwdge出力用
-		XML_manager.addElement(XML_manager.getRoot(), Knowledge.getInstace(). knowledgeToElement());
+		XML_manager.addElement(XML_manager.getRoot(), Knowledge.getInstance(). knowledgeToElement());
 
 		/* Algorithm: Hybrid-style MoFGBML with NSGA-II */
 		HybridMoFGBMLwithNSGAII<IntegerSolution> algorithm

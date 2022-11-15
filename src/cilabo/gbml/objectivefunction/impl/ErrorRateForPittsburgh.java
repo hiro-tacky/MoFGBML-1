@@ -9,7 +9,7 @@ import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import cilabo.data.DataSet;
 import cilabo.data.Pattern;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.rule.RejectedRule;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.gbml.objectivefunction.ObjectiveFunction;

@@ -15,7 +15,7 @@ import xml.XML_manager;
  *
  */
 public class Knowledge {
-	private static Knowledge instace = new Knowledge();
+	private static Knowledge instance = new Knowledge();
 	private FuzzyTermType[][] fuzzySets;
 
 	private Knowledge() {}
@@ -24,8 +24,8 @@ public class Knowledge {
 	 * Knowledge のインスタンスを取得
 	 * @return Knowledge
 	 */
-	public static Knowledge getInstace() {
-		return instace;
+	public static Knowledge getInstance() {
+		return instance;
 	}
 
 	/** 指定したファジィセットを取得

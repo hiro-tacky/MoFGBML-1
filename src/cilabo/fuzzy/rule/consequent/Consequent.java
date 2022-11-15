@@ -1,16 +1,17 @@
 package cilabo.fuzzy.rule.consequent;
 
-import cilabo.data.ClassLabel;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 
 public class Consequent {
 	// ************************************************************
 	// Fields
 
 	/**  */
-	ClassLabel consequentClass;
+	SingleClassLabel consequentClass;
 
 	/**  */
-	RuleWeight ruleWeight;
+	SingleRuleWeight ruleWeight;
 
 	// ************************************************************
 	// Constructor
@@ -20,7 +21,7 @@ public class Consequent {
 	 * @param C
 	 * @param weight
 	 */
-	public Consequent(ClassLabel C, RuleWeight weight) {
+	public Consequent(SingleClassLabel C, SingleRuleWeight weight) {
 		this.consequentClass = C;
 		this.ruleWeight = weight;
 	}
@@ -38,14 +39,14 @@ public class Consequent {
 	/**
 	 *
 	 */
-	public ClassLabel getClassLabel() {
+	public SingleClassLabel getClassLabel() {
 		return this.consequentClass;
 	}
 
 	/**
 	 *
 	 */
-	public RuleWeight getRuleWeight() {
+	public SingleRuleWeight getRuleWeight() {
 		return this.ruleWeight;
 	}
 
@@ -76,24 +77,24 @@ public class Consequent {
 	}
 
 	public static class ConsequentBuilder {
-		private ClassLabel consequentClass;
-		private RuleWeight ruleWeight;
+		private SingleClassLabel consequentClass;
+		private SingleRuleWeight ruleWeight;
 
 		ConsequentBuilder() {}
 
-		public Consequent.ConsequentBuilder consequentClass(ClassLabel consequentClass) {
+		public Consequent.ConsequentBuilder consequentClass(SingleClassLabel consequentClass) {
 			this.consequentClass = consequentClass;
 			return this;
 		}
 
-		public Consequent.ConsequentBuilder ruleWeight(RuleWeight ruleWeight) {
+		public Consequent.ConsequentBuilder ruleWeight(SingleRuleWeight ruleWeight) {
 			this.ruleWeight = ruleWeight;
 			return this;
 		}
 
 		/**
 		 * @param consequentClass : ClassLabel
-		 * @param ruleWeight : RuleWeight
+		 * @param RuleWeight : RuleWeight
 		 */
 		public Consequent build() {
 			return new Consequent(consequentClass, ruleWeight);

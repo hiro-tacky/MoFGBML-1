@@ -1,18 +1,18 @@
-package cilabo.fuzzy.classifier.factory;
+package cilabo.fuzzy.classifier.factory.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import cilabo.data.ClassLabel;
-import cilabo.fuzzy.classifier.ClassifierFactory;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.factory.ClassifierFactory;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 import cilabo.utility.GeneralFunctions;
 
 public class LoadClassifierString implements ClassifierFactory {
@@ -63,21 +63,23 @@ public class LoadClassifierString implements ClassifierFactory {
 						.build();
 	}
 
-	private ClassLabel getClassLabel(String string) {
+	private SingleClassLabel getClassLabel(String string) {
 		String[] array = string.split(",");
-		ClassLabel classLabel = new ClassLabel();
+		Integer[] classLabelBuf = new Integer[array.length];
 		for(int i = 0; i < array.length; i++) {
-			classLabel.addClassLabel(Integer.parseInt(array[i]));
+			classLabelBuf[i] = Integer.parseInt(array[i]);
 		}
+		SingleClassLabel classLabel = new SingleClassLabel(classLabelBuf);
 		return classLabel;
 	}
 
-	private RuleWeight getRuleWeight(String string) {
+	private SingleRuleWeight getRuleWeight(String string) {
 		String[] array = string.split(",");
-		RuleWeight ruleWeight = new RuleWeight();
+		Double[] ruleWeightBuf = new Double[array.length];
 		for(int i = 0; i < array.length; i++) {
-			ruleWeight.addRuleWeight(Double.parseDouble(array[i]));
+			ruleWeightBuf[i] = Double.parseDouble(array[i]);
 		}
+		SingleRuleWeight ruleWeight = new SingleRuleWeight(ruleWeightBuf);
 		return ruleWeight;
 	}
 
@@ -109,8 +111,8 @@ public class LoadClassifierString implements ClassifierFactory {
 			String[] params = line.split("\\]\\[");
 
 			Antecedent antecedent = getAntecedent(params[0]);
-			ClassLabel classLabel = getClassLabel(params[1]);
-			RuleWeight ruleWeight = getRuleWeight(params[2]);
+			SingleClassLabel classLabel = getClassLabel(params[1]);
+			SingleRuleWeight ruleWeight = getRuleWeight(params[2]);
 			Consequent consequent = Consequent.builder()
 					.consequentClass(classLabel)
 					.ruleWeight(ruleWeight)

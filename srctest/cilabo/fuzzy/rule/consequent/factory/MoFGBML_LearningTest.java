@@ -7,13 +7,13 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.fuzzy.knowledge.factory.HomoTriangleKnowledgeFactory;
 import cilabo.fuzzy.knowledge.membershipParams.HomoTriangle_3;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.antecedent.factory.HeuristicRuleGenerationMethod;
-import cilabo.fuzzy.rule.consequent.RuleWeight;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
 import cilabo.utility.Input;
 import cilabo.utility.Random;
 
@@ -110,7 +110,7 @@ class MoFGBML_LearningTest {
 	@Test
 	void testCalcClassLabel() {
 		double[] buf = new double[] { 0.1, 0.1, 0.1, 0.7 };
-		ClassLabel actual = moFGBML_Learning.calcClassLabel(buf, 0.5);
+		SingleClassLabel actual = moFGBML_Learning.calcClassLabel(buf, 0.5);
 		assertEquals(3, (int)actual.getClassLabel());
 
 		buf = new double[] { 0.1, 0.2, 0.3, 0.4 };
@@ -126,8 +126,8 @@ class MoFGBML_LearningTest {
 	void testCalcRuleWeight() {
 
 		double[] buf = new double[] { 0.1, 0.1, 0.1, 0.7 };
-		ClassLabel actual = moFGBML_Learning.calcClassLabel(buf, 0.5);
-		RuleWeight ruleWeight = moFGBML_Learning.calcRuleWeight(actual, buf);
+		SingleClassLabel actual = moFGBML_Learning.calcClassLabel(buf, 0.5);
+		SingleRuleWeight ruleWeight = moFGBML_Learning.calcRuleWeight(actual, buf);
 		assertEquals(0.4, ruleWeight.getRuleWeight(), 1e-5);
 
 		buf = new double[] { 0.1, 0.2, 0.3, 0.4 };

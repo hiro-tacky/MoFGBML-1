@@ -3,12 +3,12 @@ package cilabo.fuzzy.rule.consequent.factory;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import cilabo.data.ClassLabel;
 import cilabo.data.DataSet;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.consequent.Consequent;
 import cilabo.fuzzy.rule.consequent.ConsequentFactory;
 import cilabo.fuzzy.rule.consequent.RuleWeightVector;
+import cilabo.fuzzy.rule.consequent.classLabel.impl.SingleClassLabel;
 import cilabo.utility.Parallel;
 
 public class MultiLabel_MoFGBML_Learning extends MoFGBML_Learning implements ConsequentFactory {
@@ -31,7 +31,7 @@ public class MultiLabel_MoFGBML_Learning extends MoFGBML_Learning implements Con
 	public Consequent learning(Antecedent antecedent) {
 		double[][] confidence = this.calcConfidenceMulti(antecedent);
 
-		ClassLabel classLabel = this.calcClassLabel(confidence);
+		SingleClassLabel classLabel = this.calcClassLabel(confidence);
 		RuleWeightVector ruleWeight = this.calcRuleWeightVector(classLabel, confidence);
 
 		Consequent consequent = Consequent.builder()
@@ -91,35 +91,37 @@ public class MultiLabel_MoFGBML_Learning extends MoFGBML_Learning implements Con
 	/**
 	 *
 	 */
-	public ClassLabel calcClassLabel(double[][] confidence) {
-		ClassLabel classLabel = new ClassLabel();
+	public SingleClassLabel calcClassLabel(double[][] confidence) {
+		Integer[] classLabelBuf = new Integer[confidence.length];
 		for(int c = 0; c < confidence.length; c++) {
 			if(confidence[c][0] > confidence[c][1]) {
-				classLabel.addClassLabel(0);
+				classLabelBuf[c] = 0;
 			}
 			else if(confidence[c][0] < confidence[c][1]) {
-				classLabel.addClassLabel(1);
+				classLabelBuf[c] = 1;
 			}
 			else {
-				classLabel.addClassLabel(-1);
+				classLabelBuf[c] = -1;
 			}
 		}
+		SingleClassLabel classLabel = new SingleClassLabel(classLabelBuf);
 		return classLabel;
 	}
 
 	/**
 	 *
 	 */
-	public RuleWeightVector calcRuleWeightVector(ClassLabel classLabel, double[][] confidence) {
-		RuleWeightVector ruleWeightVector = new RuleWeightVector();
+	public RuleWeightVector calcRuleWeightVector(SingleClassLabel classLabel, double[][] confidence) {
+		Double[] ruleWeightBuf = new Double[confidence.length];
 		for(int c = 0; c < confidence.length; c++) {
 			if(classLabel.getClassVector()[c] == -1) {
-				ruleWeightVector.addRuleWeight(0.0);
+				ruleWeightBuf[c] = 0.0;
 			}
 			else {
-				ruleWeightVector.addRuleWeight(Math.abs(confidence[c][0] - confidence[c][1]));
+				ruleWeightBuf[c] = Math.abs(confidence[c][0] - confidence[c][1]);
 			}
 		}
+		RuleWeightVector ruleWeightVector = new RuleWeightVector(ruleWeightBuf);
 		return ruleWeightVector;
 	}
 

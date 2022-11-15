@@ -10,7 +10,7 @@ import org.uma.jmetal.solution.integersolution.IntegerSolution;
 import org.uma.jmetal.solution.integersolution.impl.DefaultIntegerSolution;
 
 import cilabo.fuzzy.classifier.Classifier;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.fuzzy.classifier.operator.classification.Classification;
 import cilabo.fuzzy.rule.Rule;
 import cilabo.gbml.solution.util.SortMichiganPopulation;

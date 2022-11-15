@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import cilabo.data.DataSet;
 import cilabo.fuzzy.StaticFuzzyClassifierForTest;
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.metric.Metric;
 import cilabo.utility.Input;
 

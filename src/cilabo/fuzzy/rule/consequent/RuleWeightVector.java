@@ -2,14 +2,20 @@ package cilabo.fuzzy.rule.consequent;
 
 import java.util.ArrayList;
 
-public class RuleWeightVector extends RuleWeight {
+import cilabo.fuzzy.rule.consequent.ruleWeight.impl.SingleRuleWeight;
+
+public class RuleWeightVector extends SingleRuleWeight {
 	// ************************************************************
 	// Fields
 	Double CFmean = null;
 
-	// ************************************************************
-	// Constructor
-	public RuleWeightVector() {}
+	public RuleWeightVector(Double ruleWeight) {
+		super(ruleWeight);
+	}
+
+	public RuleWeightVector(Double[] ruleWeight) {
+		super(ruleWeight);
+	}
 
 	private RuleWeightVector(ArrayList<Double> ruleWeight, Double CFmean) {
 		super(ruleWeight);
@@ -51,11 +57,8 @@ public class RuleWeightVector extends RuleWeight {
 		return this.ruleWeight.get(index);
 	}
 
-	/**
-	 *
-	 */
 	@Override
-	public void addRuleWeight(Double weight) {
+	protected void addRuleWeight(Double weight) {
 		this.CFmean = null;
 		this.ruleWeight.add(weight);
 	}
@@ -64,7 +67,7 @@ public class RuleWeightVector extends RuleWeight {
 	 *
 	 */
 	@Override
-	public void addRuleWeightVector(Double[] weight) {
+	protected void addRuleWeightVector(Double[] weight) {
 		this.CFmean = null;
 		for(int i = 0; i < weight.length; i++) {
 			this.ruleWeight.add(weight[i]);

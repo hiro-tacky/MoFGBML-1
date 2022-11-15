@@ -44,7 +44,7 @@ public class AllCombinationAntecedentFactoryTest {
 			Antecedent antecedent = factory.create();
 			assertArrayEquals(expected[i], antecedent.getAntecedentIndex());
 			for(int dim_i=0; dim_i<dimension; dim_i++) {
-				assertEquals(Knowledge.getInstace().getFuzzySet(dim_i, expected[i][dim_i]),
+				assertEquals(Knowledge.getInstance().getFuzzySet(dim_i, expected[i][dim_i]),
 						antecedent.getAntecedentFuzzySetAt(dim_i));
 			}
 		}

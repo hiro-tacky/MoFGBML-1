@@ -13,7 +13,7 @@ import org.uma.jmetal.operator.mutation.MutationOperator;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import cilabo.data.DataSet;
-import cilabo.fuzzy.classifier.operator.classification.factory.SingleWinnerRuleSelection;
+import cilabo.fuzzy.classifier.operator.classification.impl.SingleWinnerRuleSelection;
 import cilabo.fuzzy.knowledge.Knowledge;
 import cilabo.fuzzy.rule.antecedent.Antecedent;
 import cilabo.fuzzy.rule.antecedent.factory.HeuristicRuleGenerationMethod;
@@ -51,7 +51,7 @@ class HybridMoFGBMLwithNSGAIITest {
 		double crossoverProbability = 1.0;
 		/* Michigan operation */
 		CrossoverOperator<IntegerSolution> michiganX = new MichiganOperation(Consts.MICHIGAN_CROSS_RT,
-																			Knowledge.getInstace(),
+																			Knowledge.getInstance(),
 																			problem.getConsequentFactory());
 		/* Pittsburgh operation */
 		CrossoverOperator<IntegerSolution> pittsburghX = new PittsburghCrossover(Consts.PITTSBURGH_CROSS_RT);
@@ -59,13 +59,13 @@ class HybridMoFGBMLwithNSGAIITest {
 		CrossoverOperator<IntegerSolution> crossover = new HybridGBMLcrossover(crossoverProbability, Consts.MICHIGAN_OPE_RT,
 																				michiganX, pittsburghX);
 		/* Mutation: Pittsburgh-style GBML specific mutation operator. */
-		MutationOperator<IntegerSolution> mutation = new PittsburghMutation(Knowledge.getInstace(), train);
+		MutationOperator<IntegerSolution> mutation = new PittsburghMutation(Knowledge.getInstance(), train);
 
 		/* Termination: Number of total evaluations */
 		Termination termination = new TerminationByEvaluations(Consts.terminateEvaluation);
 
 		//knowlwdge出力用
-		XML_manager.addElement(XML_manager.getRoot(), Knowledge.getInstace(). knowledgeToElement());
+		XML_manager.addElement(XML_manager.getRoot(), Knowledge.getInstance(). knowledgeToElement());
 
 		/* Algorithm: Hybrid-style MoFGBML with NSGA-II */
 		HybridMoFGBMLwithNSGAII<IntegerSolution> algorithm

@@ -34,10 +34,10 @@ public class KnowledgeTest {
 		float[] actual_MembershipValue_2_3 = {1f,  1/3f, 2/3f,  0f, 2/3f, 1/3f,  0f, 0f, 1f, 0f,  0f, 0f, 1/3f, 2/3f, 0f};
 
 		for(int i=0; i<params[0].length; i++) {
-			assertEquals(actual_MembershipValue_1_2[i], Knowledge.getInstace().getMembershipValue(0.5, 0, i), diff);
+			assertEquals(actual_MembershipValue_1_2[i], Knowledge.getInstance().getMembershipValue(0.5, 0, i), diff);
 
-			assertEquals(actual_MembershipValue_1_3[i], Knowledge.getInstace().getMembershipValue(1/3d, 0, i), diff);
-			assertEquals(actual_MembershipValue_2_3[i], Knowledge.getInstace().getMembershipValue(2/3d, 0, i), diff);
+			assertEquals(actual_MembershipValue_1_3[i], Knowledge.getInstance().getMembershipValue(1/3d, 0, i), diff);
+			assertEquals(actual_MembershipValue_2_3[i], Knowledge.getInstance().getMembershipValue(2/3d, 0, i), diff);
 		}
 	}
 }

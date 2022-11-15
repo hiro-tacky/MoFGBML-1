@@ -29,7 +29,7 @@ import org.uma.jmetal.util.observable.Observable;
 import org.uma.jmetal.util.observable.ObservableEntity;
 import org.uma.jmetal.util.observable.impl.DefaultObservable;
 
-import cilabo.fuzzy.classifier.RuleBasedClassifier;
+import cilabo.fuzzy.classifier.impl.RuleBasedClassifier;
 import cilabo.gbml.component.evaluation.MichiganEvaluation;
 import cilabo.gbml.problem.AbstractMichiganGBML_Problem;
 import cilabo.util.fileoutput.MichiganSolutionListOutput;
