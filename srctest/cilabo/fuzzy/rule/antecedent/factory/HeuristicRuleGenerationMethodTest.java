@@ -20,7 +20,6 @@ import cilabo.utility.Random;
 
 public class HeuristicRuleGenerationMethodTest {
 
-
 	static DataSet train;
 	static Integer[] samplingIndex;
 	static HeuristicRuleGenerationMethod factory;

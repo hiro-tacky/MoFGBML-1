@@ -1,7 +1,7 @@
 package cilabo.data;
 
 
-public class Pattern {
+public class Pattern{
 	// ************************************************************
 	// Fields
 

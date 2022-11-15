@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import cilabo.data.DataSet;
-import cilabo.data.DatasetManager;
 import cilabo.labo.developing.fan2021.CommandLineArgs;
 import cilabo.main.Consts;
 import cilabo.utility.Input;
@@ -13,7 +12,7 @@ import cilabo.utility.Input;
 /** 学習用データ1つ，評価用データ1つのシンプルなデータ分割を保持するクラス.<br>
  * 	this class has one training dataset and one test dataset.
  *  */
-public class TrainTestDatasetManager implements DatasetManager {
+public class TrainTestDatasetManager {
 	// ** 学習用データセット <br>training dataset*/
 	final ArrayList<DataSet> trains = new ArrayList<>();
 	// ** 評価用データセット <br>test dataset*/

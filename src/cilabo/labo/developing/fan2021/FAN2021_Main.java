@@ -129,6 +129,7 @@ public class FAN2021_Main {
 	 *
 	 */
 	public static void HybridStyleMoFGBML(DataSet train, DataSet test) {
+		Random.getInstance().initRandom(2022);
 		String sep = File.separator;
 
 		/* MOP: Multi-objective Optimization Problem */

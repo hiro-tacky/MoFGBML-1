@@ -12,33 +12,28 @@ import cilabo.fuzzy.rule.consequent.ConsequentFactory;
 import cilabo.fuzzy.rule.consequent.RuleWeight;
 import cilabo.utility.Parallel;
 
+/**後件部
+ * @author hirot
+ *
+ */
 public class MoFGBML_Learning implements ConsequentFactory {
-	// ************************************************************
-	// Fields
 	/**  */
 	DataSet train;
 
-	// ************************************************************
-	// Constructor
 	public MoFGBML_Learning(DataSet train) {
 		this.train = train;
 	}
-
-	// ************************************************************
-	// Methods
 
 	@Override
 	public DataSet getTrain() {
 		return this.train;
 	}
 
-	/**
-	 *
-	 */
+	/** 後件部を算出 */
 	@Override
 	public Consequent learning(Antecedent antecedent) {
 		double[] confidence = this.calcConfidence(antecedent);
-		ClassLabel classLabel = this.calcClassLabel(confidence);
+		ClassLabel classLabel = this.calcClassLabel(confidence, 0.5);
 		RuleWeight ruleWeight = this.calcRuleWeight(classLabel, confidence);
 
 		Consequent consequent = Consequent.builder()
@@ -105,8 +100,8 @@ public class MoFGBML_Learning implements ConsequentFactory {
 	 * @param confidence
 	 * @return
 	 */
-	public ClassLabel calcClassLabel(double[] confidence) {
-		double max = -Double.MAX_VALUE;
+	public ClassLabel calcClassLabel(double[] confidence, double limit) {
+		double max = Double.MIN_VALUE;
 		int consequentClass = -1;
 
 		for(int i = 0; i < confidence.length; i++) {
@@ -118,9 +113,8 @@ public class MoFGBML_Learning implements ConsequentFactory {
 				consequentClass = -1;
 			}
 		}
-		if(max <= 0.5) {
-			consequentClass = -1;
-		}
+
+		if(max <= limit) { consequentClass = -1; }
 
 		ClassLabel classLabel = new ClassLabel();
 		classLabel.addClassLabel(consequentClass);
@@ -128,6 +122,12 @@ public class MoFGBML_Learning implements ConsequentFactory {
 		return classLabel;
 	}
 
+	/**
+	 * ルール重みを算出
+	 * @param consequentClass 結論部クラス
+	 * @param confidence クラス別の信頼度
+	 * @return
+	 */
 	public RuleWeight calcRuleWeight(ClassLabel consequentClass, double[] confidence) {
 		// 生成不可能ルール判定
 		if(consequentClass.getClassLabel() == -1) {

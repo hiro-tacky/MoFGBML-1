@@ -144,7 +144,5 @@ public class MOP1<S extends Solution<?>> extends AbstractPitssburghGBML_Problem<
 		solution.setObjective(0, f1);
 		solution.setObjective(1, f2);
 	}
-
-
 }
 

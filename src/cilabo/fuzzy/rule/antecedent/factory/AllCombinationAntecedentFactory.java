@@ -39,7 +39,7 @@ public class AllCombinationAntecedentFactory implements AntecedentFactory {
 			ArrayList<Integer> buf = que.poll();
 			int dim_i = buf.size();
 			if(dim_i < dimension) {
-				for(int i=0; i < Knowledge.getInstace().getFuzzySetNum(dim_i); i++) {
+				for(int i=1; i < Knowledge.getInstace().getFuzzySetNum(dim_i); i++) {
 					ArrayList<Integer> tmp = (ArrayList<Integer>) buf.clone();
 					tmp.add(i);
 					que.add(tmp);

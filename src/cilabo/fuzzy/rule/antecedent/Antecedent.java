@@ -5,15 +5,20 @@ import java.util.Arrays;
 import cilabo.fuzzy.knowledge.Knowledge;
 import jfml.term.FuzzyTermType;
 
+/**前件部クラス
+ * @author hirot
+ *
+ */
+/**
+ * @author hirot
+ *
+ */
 public class Antecedent {
-	// ************************************************************
-	// Fields
+	/**ファジィセットのインデックス */
 	protected int[] antecedentIndex;
 
+	/** ファジィセット */
 	protected FuzzyTermType[] antecedentFuzzySets;
-
-	// ************************************************************
-	// Constructor
 
 	/**
 	 * private constructor for deepcopy method
@@ -25,9 +30,7 @@ public class Antecedent {
 		this.antecedentFuzzySets = antecedentFuzzySets;
 	}
 
-	/**
-	 *
-	 * @param knowledge
+	/**コンストラクタ(Shallow copy)
 	 * @param antecedentIndex : Shallow copy
 	 */
 	public Antecedent(int[] antecedentIndex) {
@@ -45,19 +48,15 @@ public class Antecedent {
 		}
 	}
 
-	// ************************************************************
-	// Methods
-
-	/**
-	 *
-	 */
+	/** deepcopy */
 	public Antecedent deepcopy() {
 		int[] antecedentIndex = Arrays.copyOf(this.antecedentIndex, this.antecedentIndex.length);
 		return new Antecedent(antecedentIndex, this.antecedentFuzzySets.clone());
 	}
 
-	/**
-	 *
+	/** 適用度を算出する
+	 * @param x 入力パターンの属性値
+	 * @return 適用度
 	 */
 	public double getCompatibleGrade(double[] x) {
 		double grade = 1;
@@ -99,11 +98,6 @@ public class Antecedent {
 		return this.antecedentIndex;
 	}
 
-	/**
-	 *
-	 * @param index
-	 * @return
-	 */
 	public FuzzyTermType getAntecedentFuzzySetAt(int index) {
 		return this.antecedentFuzzySets[index];
 	}
@@ -111,8 +105,10 @@ public class Antecedent {
 	public FuzzyTermType[] getAntecedentFuzzySets() {
 		return this.antecedentFuzzySets;
 	}
-	/**
-	 *
+
+
+	/** ルール長を算出．但しDon't careは含まない
+	 * @return ルール長
 	 */
 	public int getRuleLength() {
 		int length = 0;

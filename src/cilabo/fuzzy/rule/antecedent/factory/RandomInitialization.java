@@ -9,12 +9,12 @@ import cilabo.main.Consts;
 import random.MersenneTwisterFast;
 
 public class RandomInitialization implements AntecedentFactory {
-	// ************************************************************
-	// Fields
+	/**	乱数生成器 */
 	MersenneTwisterFast uniqueRnd;
 
-	/**  */
+	/** 学習用データ */
 	DataSet train;
+
 
 	// ************************************************************
 	// Constructor
